@@ -5,7 +5,9 @@ import numpy as np
 from scipy import ones,arange,floor
 from sklearn.linear_model import SGDClassifier
 from sklearn.feature_extraction.text import HashingVectorizer
+from sklearn.model_selection import train_test_split
 from sklearn.grid_search import GridSearchCV
+from sklearn.metrics import precision_score, classification_report
 from sklearn.pipeline import Pipeline
 from manifesto_data import get_manifesto_texts
 
@@ -96,7 +98,7 @@ class Classifier:
         return df.rename(index=str,columns=mc)
 
 
-    def train(self,folds = 2):
+    def train(self,folds = 2, validation_ratio = 0.3, precision_threshold = 0.1):
         '''
         trains a classifier on the bag of word vectors
 
@@ -104,21 +106,45 @@ class Classifier:
         folds   number of cross-validation folds for model selection
 
         '''
+
         try:
             # load the data
             data,labels = get_manifesto_texts()
         except:
             print('Could not load text data file in\n')
             raise
+
+        # the manifesto codes
+        mc = manifestolabels()
+
+        # set some data aside for cross-validation
+        train_data, test_data, train_labels, test_labels = train_test_split(data, labels, test_size=validation_ratio)
+
         # the scikit learn pipeline for vectorizing, normalizing and classifying text
         text_clf = Pipeline([('vect', HashingVectorizer()),
                             ('clf',SGDClassifier(loss="log"))])
         # tried many more hyperparameters, for the manifestodata these were the
-        # optimal ones, so i'm freezing them here. 
-        parameters = {'vect__ngram_range': [(1, 1)],
-               'clf__alpha': (10.**arange(-5,-4)).tolist()}
+        # optimal ones, so i'm freezing them here.
+        parameters = {'vect__ngram_range': [(1, 1), (1, 2), (1, 3)],
+               'clf__alpha': (10.**arange(-5,-2)).tolist()}
         # perform gridsearch to get the best regularizer
-        gs_clf = GridSearchCV(text_clf, parameters, cv=folds, n_jobs=-1,verbose=4)
-        gs_clf.fit(data,labels)
+        gs_clf = GridSearchCV(text_clf, parameters, 'precision_weighted', cv=folds, n_jobs=-1,verbose=4)
+        gs_clf.fit(train_data,train_labels)
+        test_predictions = gs_clf.predict(test_data)
+
+        with open("classification_report.txt",'w') as fh:
+            fh.write(classification_report(test_predictions, test_labels))
+
+        unique_labels = np.unique(labels)
+        # compute precisions for each manifesto label
+        precisions = dict(zip(unique_labels, precision_score(test_predictions, test_labels, labels=unique_labels, average=None)))
+        too_bad = [l for l,s in precisions.items() if s < precision_threshold]
+        print("Discarding %d labels with precisions below %f: %s"%(len(too_bad),"\n".join([mc[l] for l in too_bad]), precision_threshold))
+        # if manifesto code cannot be predicted with sufficient precision,
+        # don't try to predict it - so we're discarding the respective data points
+        data, labels = zip(*[(t,l) for t,l in zip(data,labels) if precisions[l] > precision_threshold])
+        # fit again on all data points but only with best params
+        # gs_clf = GridSearchCV(text_clf, params_, 'precision_weighted', cv=folds, n_jobs=-1,verbose=4)
+        gs_clf.best_estimator_.fit(data,labels)
         # dump classifier to pickle
         pickle.dump(gs_clf.best_estimator_,open('classifier.pickle','wb'))
