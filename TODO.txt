@@ -1,0 +1,3 @@
+- Installation/Dependency management (pip|conda|pipenv?)
+- Check newer manifestoproject versions
+- Check manifesto API download
