@@ -139,13 +139,42 @@ def plotAll(folder = FOLDER):
 
     df.to_csv(FOLDER + "results.csv")
 
+def plotAll(folder = FOLDER):
+    '''
+    Run analysis for BR
+    - Classifies texts per party
+    - Create violin plots for each topic
+    - Computes most 'characteristic' text segments for each party
+    '''
+    predictions = []
+    colors = []
+    clf = Classifier(train=True)
+    for party, fn, color in partyFiles:
+        predictions.append(classify_br(folder, fn, party, clf))
+        colors.append(color)
+
+    df = pd.concat(predictions)
+    # compute most distant statements per topic, discard result as it's csv-dumped
+    _ = compute_most_distant_statements_per_topic(df, folder=folder)
+
+    sns.set_style("whitegrid")
+
+    plot_left_right(df, colors, folder=folder, plot_suffix = 'all_domains')
+
+    for domain in domains:
+        # get rows containing statements for this topic across all parties
+        idx = df[domains].apply(pd.Series.argmax,axis=1)==domain
+        plot_left_right(df[idx], colors, folder=folder, plot_suffix = domain)
+
+    df.to_csv(FOLDER + "results.csv")
+
 def plot_left_right(df,
     colors,
     plot_column='right',
     grouping_column='party',
     folder=FOLDER,
     plot_suffix=""):
-    sns.set_style("whitegrid")
+
     # median-centered per domain right position
     df[plot_column] = df[plot_column] - df[plot_column].median()
     ax = sns.violinplot(x=plot_column,y=grouping_column,
@@ -158,3 +187,6 @@ def plot_left_right(df,
     ax.set_title(plot_suffix)
     output_file(folder+"violinPlot-%s.html"%plot_suffix)
     show(mpl.to_bokeh())
+
+if __name__ == "__main__":
+    plotAll()
