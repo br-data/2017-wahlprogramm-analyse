@@ -120,7 +120,7 @@ def plotAll(folder = FOLDER):
     '''
     predictions = []
     colors = []
-    clf = Classifier(train=False)
+    clf = Classifier(train=True)
     for party, fn, color in partyFiles:
         predictions.append(classify_br(folder, fn, party, clf))
         colors.append(color)
@@ -141,10 +141,11 @@ def plotAll(folder = FOLDER):
             split=True,scale="count", inner="stick", saturation=0.5)
         ax.set_xlim([0,1])
         ax.set_xticks(np.arange(0,1,.1))
-        ax.set_xlabel("p(rechts)")
+        ax.set_xlabel("links-rechts Index")
         ax.set_ylabel("Partei")
         ax.set_title(domain)
         output_file(folder+"violinPlot-%s.html"%domain)
 
         show(mpl.to_bokeh())
+    del(df['tf_idf'])
     df.to_csv(FOLDER + "results.csv")

@@ -2,9 +2,9 @@ import urllib, itertools, json, os
 import urllib.request
 import pandas as pd
 
-BASEURL = "https://manifesto-project.wzb.eu/tools/"
-VERSION = "MPDS2016a"
-APIKEY  = "" #AN API KEY STRING FROM https://manifestoproject.wzb.eu/information/documents/api
+BASEURL = "https://manifesto-project.wzb.eu/tools"
+VERSION = "MPDS2016b"
+APIKEY  = "INSERT_APIKEY" #AN API KEY STRING FROM https://manifestoproject.wzb.eu/information/documents/api
 COUNTRY = "Germany"
 
 def get_url(url):
@@ -14,7 +14,7 @@ def get_latest_version():
     '''
     Get the latest version id of the Corpus
     '''
-    versionsUrl = BASEURL+"list_metadata_versions.json?&key="+APIKEY
+    versionsUrl = BASEURL+"/api_list_metadata_versions.json?&api_key="+APIKEY
     versions = json.loads(get_url(versionsUrl))
     return versions['versions'][-1]
 
@@ -22,7 +22,7 @@ def get_manifesto_id(text_id,version):
     '''
     Get manifesto id of a text given the text id and a version id
     '''
-    textKeyUrl = BASEURL+"metadata.json?keys[]="+text_id+"&version="+version+"&key="+APIKEY
+    textKeyUrl = BASEURL+"/api_metadata?keys[]="+text_id+"&version="+version+"&api_key="+APIKEY
     textMetaData = json.loads(get_url(textKeyUrl))
     return textMetaData['items'][0]['manifesto_id']
 
@@ -31,7 +31,7 @@ def get_core(version = VERSION):
     Downloads core data set, including information about all parties
     https://manifestoproject.wzb.eu/information/documents/api
     '''
-    url = BASEURL + "/get_core?key=" + VERSION + "&key=" + APIKEY
+    url = BASEURL + "/api_get_core?key=" + VERSION + "&api_key=" + APIKEY
     return json.loads(get_url(url))
 
 def get_text_keys(country=COUNTRY):
@@ -46,10 +46,12 @@ def get_text(text_id):
     version = get_latest_version()
     # get the text metadata and manifesto ID
     manifestoId = get_manifesto_id(text_id,version)
-    textUrl = BASEURL + "texts_and_annotations.json?keys[]="+manifestoId+"&version="+version+"&key="+APIKEY
+    textUrl = BASEURL + "/api_texts_and_annotations.json?keys[]="+manifestoId+"&version="+version+"&api_key="+APIKEY
     textData = json.loads(get_url(textUrl))
     try:
-        return [(t['cmp_code'],t['text']) for t in textData['items'][0]['items']]
+        text = [(t['cmp_code'],t['text']) for t in textData['items'][0]['items']]
+        print('Downloaded %d texts for %s'%(len(textData['items'][0]['items']),text_id))
+        return text
     except:
         print('Could not get text %s'%text_id)
 
@@ -68,9 +70,10 @@ def get_texts(country=COUNTRY):
 
 def get_manifesto_texts(country = "Germany",
         folder="data/manifesto",
-        min_len=10):
+        min_len=10,
+        force_download = False):
     fn = folder + "/manifesto-%s.csv"%country
-    if os.path.isfile(fn):
+    if (force_download == False) and os.path.isfile(fn):
         print("Loading %s"%fn)
         df = pd.read_csv(fn)
     else:
