@@ -101,7 +101,7 @@ class Classifier:
         return df.rename(index=str,columns=mc)
 
 
-    def train(self,folds = 2, validation_ratio = 0.3, precision_threshold = 0.1):
+    def train(self,folds = 2, validation_ratio = 0.5, precision_threshold = 0.1):
         '''
         trains a classifier on the bag of word vectors
 
@@ -125,7 +125,7 @@ class Classifier:
 
         # the scikit learn pipeline for vectorizing, normalizing and classifying text
         text_clf = Pipeline([('vect', HashingVectorizer()),
-                            ('clf',SGDClassifier(loss="log",n_jobs=-1))])
+                            ('clf',SGDClassifier(loss="log",n_jobs=-1,n_iter=10))])
         # tried many more hyperparameters, these worked best
         parameters = {
             'vect__ngram_range': [(1, 1)],

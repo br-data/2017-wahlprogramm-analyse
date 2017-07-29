@@ -109,6 +109,7 @@ def compute_most_distant_statements_per_topic(preds, n_most_distant=5, folder=FO
     most_distant_statements_df = pd.DataFrame(most_distant_statements, columns=['party', 'domain', 'most_distant_to_other_parties', 'distance'])
     most_distant_statements_df = most_distant_statements_df.sort_values(by=['party','domain'])
     most_distant_statements_df.to_csv(FOLDER+'most_distant_statements_per_topic.csv',index=False)
+    del(preds['tf_idf'])
     return most_distant_statements_df
 
 def plotAll(folder = FOLDER):
@@ -129,23 +130,31 @@ def plotAll(folder = FOLDER):
     # compute most distant statements per topic, discard result as it's csv-dumped
     _ = compute_most_distant_statements_per_topic(df, folder=folder)
 
-    sns.set_style("whitegrid")
+    plot_left_right(df, colors, folder=folder, plot_suffix = 'all_domains')
 
     for domain in domains:
         # get rows containing statements for this topic across all parties
         idx = df[domains].apply(pd.Series.argmax,axis=1)==domain
-        # median-centered per domain right position
-        df.loc[idx,'right'] = df[idx]['right'] - df[idx]['right'].median()
-        ax = sns.violinplot(x="right",y="party",
-            data=df[idx][['right','party']], palette=sns.color_palette(colors),
-            split=True,scale="count", inner="stick", saturation=0.5)
-        ax.set_xlim([0,1])
-        ax.set_xticks(np.arange(0,1,.1))
-        ax.set_xlabel("links-rechts Index")
-        ax.set_ylabel("Partei")
-        ax.set_title(domain)
-        output_file(folder+"violinPlot-%s.html"%domain)
+        plot_left_right(df[idx], colors, folder=folder, plot_suffix = domain)
 
-        show(mpl.to_bokeh())
-    del(df['tf_idf'])
     df.to_csv(FOLDER + "results.csv")
+
+def plot_left_right(df,
+    colors,
+    plot_column='right',
+    grouping_column='party',
+    folder=FOLDER,
+    plot_suffix=""):
+    sns.set_style("whitegrid")
+    # median-centered per domain right position
+    df[plot_column] = df[plot_column] - df[plot_column].median()
+    ax = sns.violinplot(x=plot_column,y=grouping_column,
+        data=df[[plot_column,grouping_column]], palette=sns.color_palette(colors),
+        split=True,scale="count", inner="stick", saturation=0.5)
+    ax.set_xlim([0,1])
+    ax.set_xticks(np.arange(0,1,.1))
+    ax.set_xlabel("links-rechts Index")
+    ax.set_ylabel("Partei")
+    ax.set_title(plot_suffix)
+    output_file(folder+"violinPlot-%s.html"%plot_suffix)
+    show(mpl.to_bokeh())
