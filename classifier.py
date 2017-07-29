@@ -125,16 +125,14 @@ class Classifier:
 
         # the scikit learn pipeline for vectorizing, normalizing and classifying text
         text_clf = Pipeline([('vect', HashingVectorizer()),
-                            ('clf',SGDClassifier(loss="log",class_weight='balanced'))])
-        # tried many more hyperparameters, for the manifestodata these were the
-        # optimal ones, so i'm freezing them here.
+                            ('clf',SGDClassifier(loss="log",n_jobs=-1))])
+        # tried many more hyperparameters, these worked best
         parameters = {
-            'vect__ngram_range': [(1, 1), (1, 2), (1, 3)],
-            'clf__alpha': (10.**arange(-5,-2)).tolist(),
-            'clf__average': [False, True]
+            'vect__ngram_range': [(1, 1)],
+            'clf__alpha': (10.**arange(-6,-3)).tolist()
         }
         # perform gridsearch to get the best regularizer
-        gs_clf = GridSearchCV(text_clf, parameters, 'precision_weighted', cv=folds, n_jobs=-1,verbose=4)
+        gs_clf = GridSearchCV(text_clf, parameters, cv=folds, n_jobs=-1,verbose=4)
         gs_clf.fit(train_data,train_labels)
         test_predictions = gs_clf.predict(test_data)
 
