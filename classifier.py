@@ -91,10 +91,13 @@ class Classifier:
         mc = manifestolabels()
         df = pd.DataFrame(self.clf.predict_proba(texts),columns=self.clf.classes_)
         mcCols = df.columns
+        valid_right = list(set(label2rightleft['right']).intersection(set(mcCols)))
+        valid_left = list(set(label2rightleft['left']).intersection(set(mcCols)))
+        df['right'] = df[valid_right].sum(axis=1)
+        df['left'] = df[valid_left].sum(axis=1)
         for dom,domIdx in label2domain.items():
             df[dom] = df[mcCols[floor(mcCols/100)==domIdx]].sum(axis=1)
-        df['right'] = df[label2rightleft['right']].sum(axis=1)
-        df['left'] = df[label2rightleft['left']].sum(axis=1)
+
         return df.rename(index=str,columns=mc)
 
 
@@ -139,7 +142,7 @@ class Classifier:
         # compute precisions for each manifesto label
         precisions = dict(zip(unique_labels, precision_score(test_predictions, test_labels, labels=unique_labels, average=None)))
         too_bad = [l for l,s in precisions.items() if s < precision_threshold]
-        print("Discarding %d labels with precisions below %f: %s"%(len(too_bad),"\n".join([mc[l] for l in too_bad]), precision_threshold))
+        print("Discarding %d labels with precisions below %f: %s"%(len(too_bad), precision_threshold, "\n".join([mc[l] for l in too_bad])))
         # if manifesto code cannot be predicted with sufficient precision,
         # don't try to predict it - so we're discarding the respective data points
         data, labels = zip(*[(t,l) for t,l in zip(data,labels) if precisions[l] > precision_threshold])

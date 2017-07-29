@@ -8,7 +8,7 @@ from bokeh.plotting import output_file, show
 from sklearn.feature_extraction.text import TfidfVectorizer
 from classifier import Classifier, label2domain, manifestolabels
 
-FOLDER = "/data/wahlprogramme/"
+FOLDER = "data/wahlprogramme/"
 
 # Tuples with party names, files and plotting colors
 partyFiles = [
@@ -51,7 +51,7 @@ def read_md(fn, min_len=100):
     texts = filter(len_filter, map(clean_whitespace, text_segments))
     return texts
 
-def classify_br(folder, fn, party, clf, max_txts=5000):
+def classify_br(folder, fn, party, clf, max_txts=10000):
     '''
     Computes predictions for a given party
     INPUT:
@@ -67,7 +67,8 @@ def classify_br(folder, fn, party, clf, max_txts=5000):
     if len(content) > max_txts:
         content = random.sample(content, max_txts)
     preds = clf.predictBatch(content)
-    preds['max_manifesto'] = preds[list(manifestolabels().values())].idxmax(axis=1)
+    manifesto_codes = list(set(manifestolabels().values()).intersection(set(preds.columns.tolist())))
+    preds['max_manifesto'] = preds[manifesto_codes].idxmax(axis=1)
     preds['max_domain'] = preds[list(label2domain.keys())].idxmax(axis=1)
     preds['max_leftright'] = preds[['left', 'right']].idxmax(axis=1)
     preds['content'] = content
@@ -102,17 +103,17 @@ def compute_most_distant_statements_per_topic(preds, n_most_distant=5, folder=FO
             # compute L_1 distance between party and other parties
             dists = sp.array(abs(partyVecs - otherVec).sum(axis=1)).flatten()
             # find and store 'characteristic' text segments
-            most_distant = partyTexts[dists.argsort()[-n_most_distant:][-1::-1]]
-            most_distant_statements.extend([(party, domain, m) for m in most_distant])
+            most_distant = [(partyTexts[idx], dists[idx]) for idx in dists.argsort()[-n_most_distant:][-1::-1]]
+            most_distant_statements.extend([(party, domain, m, d) for m, d in most_distant])
     # store results as DataFrame
-    most_distant_statements_df = pd.DataFrame(most_distant_statements, columns=['party', 'domain', 'most_distant_to_other_parties'])
+    most_distant_statements_df = pd.DataFrame(most_distant_statements, columns=['party', 'domain', 'most_distant_to_other_parties', 'distance'])
     most_distant_statements_df = most_distant_statements_df.sort_values(by=['party','domain'])
     most_distant_statements_df.to_csv(FOLDER+'most_distant_statements_per_topic.csv',index=False)
     return most_distant_statements_df
 
 def plotAll(folder = FOLDER):
     '''
-    Run entire analysis for BR
+    Run analysis for BR
     - Classifies texts per party
     - Create violin plots for each topic
     - Computes most 'characteristic' text segments for each party
@@ -131,7 +132,10 @@ def plotAll(folder = FOLDER):
     sns.set_style("whitegrid")
 
     for domain in domains:
+        # get rows containing statements for this topic across all parties
         idx = df[domains].apply(pd.Series.argmax,axis=1)==domain
+        # median-centered per domain right position
+        df.loc[idx,'right'] = df[idx]['right'] - df[idx]['right'].median()
         ax = sns.violinplot(x="right",y="party",
             data=df[idx][['right','party']], palette=sns.color_palette(colors),
             split=True,scale="count", inner="stick", saturation=0.5)
