@@ -14,6 +14,10 @@ Installieren der dependencies:
 
   `pip install -r requirements.txt`
 
+Eigenen API-Key in `manifesto_data.py` hinzufügen ([mehr Infos](https://manifestoproject.wzb.eu/information/documents/api)). Beispiel:
+
+  `APIKEY  = "36ef88622dd8955fbf8c2afe9b13c7b2"`
+
 Ausführen der Analysen:
 
   `python br.py`

@@ -8,7 +8,8 @@ from bokeh.plotting import output_file, show
 from sklearn.feature_extraction.text import TfidfVectorizer
 from classifier import Classifier, label2domain, manifestolabels
 
-FOLDER = "data/wahlprogramme/"
+MANIFESTO_FOLDER = "data/wahlprogramme/"
+RESULT_FOLDER = "data/resultate/"
 
 # Tuples with party names, files and plotting colors
 partyFiles = [
@@ -75,7 +76,7 @@ def classify_br(folder, fn, party, clf, max_txts=10000):
     preds['party'] = party
     return preds
 
-def compute_most_distant_statements_per_topic(preds, n_most_distant=5, folder=FOLDER):
+def compute_most_distant_statements_per_topic(preds, n_most_distant=5, folder=MANIFESTO_FOLDER):
     '''
     Computes for each topic and party the text segments that are most distant
     to the average text segments of all other parties. Could be interpreted as
@@ -108,11 +109,11 @@ def compute_most_distant_statements_per_topic(preds, n_most_distant=5, folder=FO
     # store results as DataFrame
     most_distant_statements_df = pd.DataFrame(most_distant_statements, columns=['party', 'domain', 'most_distant_to_other_parties', 'distance'])
     most_distant_statements_df = most_distant_statements_df.sort_values(by=['party','domain'])
-    most_distant_statements_df.to_csv(FOLDER+'most_distant_statements_per_topic.csv',index=False)
+    most_distant_statements_df.to_csv(RESULT_FOLDER+'most_distant_statements_per_topic.csv',index=False)
     del(preds['tf_idf'])
     return most_distant_statements_df
 
-def plotAll(folder = FOLDER):
+def plotAll(folder = MANIFESTO_FOLDER):
     '''
     Run analysis for BR
     - Classifies texts per party
@@ -137,13 +138,13 @@ def plotAll(folder = FOLDER):
         idx = df[domains].apply(pd.Series.argmax,axis=1)==domain
         plot_left_right(df[idx], colors, folder=folder, plot_suffix = domain)
 
-    df.to_csv(FOLDER + "results.csv")
+    df.to_csv(RESULT_FOLDER + "results.csv")
 
 def plot_left_right(df,
     colors,
     plot_column='right',
     grouping_column='party',
-    folder=FOLDER,
+    folder=RESULT_FOLDER,
     plot_suffix=""):
 
     # median-centered per domain right position
@@ -156,7 +157,7 @@ def plot_left_right(df,
     ax.set_xlabel("links-rechts Index")
     ax.set_ylabel("Partei")
     ax.set_title(plot_suffix)
-    output_file(folder+"violinPlot-%s.html"%plot_suffix)
+    output_file(RESULT_FOLDER+"violinPlot-%s.html"%plot_suffix)
     show(mpl.to_bokeh())
 
 if __name__ == "__main__":

@@ -1,0 +1,23 @@
+# Results
+data/resultate/
+
+# Classification
+data/manifesto/manifesto-Germany.csv
+classifier.pickle
+classification_report.txt
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
