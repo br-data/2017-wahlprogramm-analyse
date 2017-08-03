@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from scipy import ones,arange,floor
 from sklearn.linear_model import SGDClassifier
-from sklearn.feature_extraction.text import HashingVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.grid_search import GridSearchCV
 from sklearn.metrics import precision_score, classification_report
@@ -124,12 +124,13 @@ class Classifier:
         train_data, test_data, train_labels, test_labels = train_test_split(data, labels, test_size=validation_ratio)
 
         # the scikit learn pipeline for vectorizing, normalizing and classifying text
-        text_clf = Pipeline([('vect', HashingVectorizer()),
-                            ('clf',SGDClassifier(loss="log",n_jobs=-1,n_iter=10))])
+        text_clf = Pipeline([('vect', TfidfVectorizer()),
+                            ('clf',SGDClassifier(loss="log",n_jobs=-1,n_iter=5))])
         # tried many more hyperparameters, these worked best
         parameters = {
-            'vect__ngram_range': [(1, 1)],
-            'clf__alpha': (10.**arange(-6,-3)).tolist()
+            'vect__ngram_range': [(1, 1), (1, 2)],
+            'vect__max_df': [.2],
+            'clf__alpha': (np.logspace(-6, -4, 4)).tolist()
         }
         # perform gridsearch to get the best regularizer
         gs_clf = GridSearchCV(text_clf, parameters, cv=folds, n_jobs=-1,verbose=4)
