@@ -1,4 +1,4 @@
-import re, random
+import re, random, os, json
 import pandas as pd
 import numpy as np
 import scipy as sp
@@ -10,6 +10,9 @@ from classifier import Classifier, label2domain, manifestolabels
 
 MANIFESTO_FOLDER = "data/wahlprogramme/"
 RESULT_FOLDER = "data/resultate/"
+
+if not os.path.isdir(RESULT_FOLDER):
+    os.mkdir(RESULT_FOLDER)
 
 # Tuples with party names, files and plotting colors
 partyFiles = [
@@ -64,7 +67,7 @@ def classify_br(folder, fn, party, clf, max_txts=10000):
     OUTPUT:
     predictions pandas DataFrame with predictions, texts and party as columns
     '''
-    content = list(read_md(folder + fn))
+    content = list(read_md(os.path.join(folder,fn)))
     if len(content) > max_txts:
         content = random.sample(content, max_txts)
     preds = clf.predictBatch(content)
@@ -109,11 +112,11 @@ def compute_most_distant_statements_per_topic(preds, n_most_distant=5, folder=MA
     # store results as DataFrame
     most_distant_statements_df = pd.DataFrame(most_distant_statements, columns=['party', 'domain', 'most_distant_to_other_parties', 'distance'])
     most_distant_statements_df = most_distant_statements_df.sort_values(by=['party','domain'])
-    most_distant_statements_df.to_csv(RESULT_FOLDER+'most_distant_statements_per_topic.csv',index=False)
+    most_distant_statements_df.to_csv(os.path.join(folder,'most_distant_statements_per_topic.csv'),index=False)
     del(preds['tf_idf'])
     return most_distant_statements_df
 
-def plotAll(folder = MANIFESTO_FOLDER):
+def plotAll():
     '''
     Run analysis for BR
     - Classifies texts per party
@@ -124,21 +127,22 @@ def plotAll(folder = MANIFESTO_FOLDER):
     colors = []
     clf = Classifier(train=True)
     for party, fn, color in partyFiles:
-        predictions.append(classify_br(folder, fn, party, clf))
+        predictions.append(classify_br(MANIFESTO_FOLDER, fn, party, clf))
         colors.append(color)
 
     df = pd.concat(predictions)
     # compute most distant statements per topic, discard result as it's csv-dumped
-    _ = compute_most_distant_statements_per_topic(df, folder=folder)
+    _ = compute_most_distant_statements_per_topic(df)
+    compute_word_code_correlations(df)
 
-    plot_left_right(df, colors, folder=folder, plot_suffix = 'all_domains')
+    plot_left_right(df, colors, plot_suffix = 'all_domains')
 
     for domain in domains:
         # get rows containing statements for this topic across all parties
         idx = df[domains].apply(pd.Series.argmax,axis=1)==domain
-        plot_left_right(df[idx], colors, folder=folder, plot_suffix = domain)
+        plot_left_right(df[idx], colors, plot_suffix = domain)
 
-    df.to_csv(RESULT_FOLDER + "results.csv")
+    df.to_csv(os.path.join(RESULT_FOLDER, "results.csv"))
 
 def plot_left_right(df,
     colors,
@@ -157,8 +161,36 @@ def plot_left_right(df,
     ax.set_xlabel("links-rechts Index")
     ax.set_ylabel("Partei")
     ax.set_title(plot_suffix)
-    output_file(RESULT_FOLDER+"violinPlot-%s.html"%plot_suffix)
+    output_file(os.path.join(folder,"violinPlot-%s.html"%plot_suffix))
     show(mpl.to_bokeh())
+
+def compute_word_code_correlations(preds, folder = RESULT_FOLDER):
+    '''
+    Computes correlations between single words and manifesto codes
+    see also http://www.sciencedirect.com/science/article/pii/S1053811913010914
+    '''
+    tf = TfidfVectorizer(max_df=.2).fit(preds.content)
+    preds['tf_idf'] = preds.content.apply(lambda x: tf.transform([x]))
+    labels = list(set(manifestolabels().values()).intersection(set(preds.columns.tolist()))) + domains + ['right']
+    idx2word = {v:k for k,v in tf.vocabulary_.items()}
+    X = sp.sparse.vstack(preds.tf_idf)
+    Xw = preds[labels].as_matrix()
+    XXw = X.T.dot(Xw)
+    correlations = {}
+    for idx,mc in enumerate(labels):
+        correlations[mc] = [idx2word[widx] for widx in XXw[:,idx].argsort()[::-1]]
+        print("Most correlated words for {}:\n{}\n\n".format(mc,", ".join(correlations[mc][:50])))
+    # write results to json file
+    json.dump(correlations,open(os.path.join(folder, "word_correlations.json"),"w"))
+
+def sort_by_word_importance(text, label = 'right', folder = RESULT_FOLDER):
+    # read word correlations
+    correlations = json.load(open(os.path.join(folder, "word_correlations.json"),"r"))
+    words = [re.sub('[!?,.-]','',w) for w in text.lower().split(" ")]
+    text_sorted_by_relevance = [w for w in correlations[label] if w in words]
+
+    print("Original Text:\n{}\n\n".format(text))
+    print("Words sorted by relevance for classifier:\n{}\n\n".format(" ".join(text_sorted_by_relevance)))
 
 if __name__ == "__main__":
     plotAll()
