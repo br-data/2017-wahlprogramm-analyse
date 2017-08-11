@@ -6,18 +6,45 @@ data/manifesto/manifesto-Germany.csv
 classifier.pickle
 classification_report.txt
 
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 
-# Installer logs
+# PIP
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Environments
+# VirtualEnv
 .env
 .venv
 env/
 venv/
 ENV/
+
+# Node
+node_modules
+logs
+*.log
+pids
+*.pid
+*.seed
+.grunt
+.tmp
+build/Release
+.lock-wscript
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
