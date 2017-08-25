@@ -11,6 +11,11 @@ const parties = [
   'Die Linke'
 ];
 
+const leftright = [
+  'left',
+  'right'
+];
+
 const maxima = [
   'max_domain',
   'max_manifesto',
@@ -66,6 +71,38 @@ const manifesto = [
   'non economic groups +'
 ];
 
+const manifestoRight = [
+  'military +',
+  'freedom/human rights +',
+  'constitution +',
+  'political authority +',
+  'free enterprise +',
+  'incentives +',
+  'protectionism -',
+  'economic orthodoxy +',
+  'welfare -',
+  'national way of life +',
+  'traditional morality +',
+  'law and order +',
+  'social harmony +'
+];
+
+const manifestoLeft = [
+  'anti-imperial,sm +',
+  'military -',
+  'peace +',
+  'internationalism +',
+  'market regulation +',
+  'economic planning +',
+  'protectionism +',
+  'controlled economy +',
+  'nationalization +',
+  'welfare +',
+  'education +',
+  'labour +',
+  'democracy +'
+];
+
 (function init() {
 
   loadFile('../data/resultate/results.csv', data => {
@@ -119,6 +156,12 @@ function transform(data) {
 
     let party = result[paragraph.party] = result[paragraph.party] || {};
 
+    leftright.forEach(leri => {
+
+      party[leri] = party[leri] || [];
+      party[leri].push(paragraph[leri]);
+    });
+
     maxima.forEach(maximum => {
 
       party[maximum] = party[maximum] || [];
@@ -149,14 +192,54 @@ function aggregate(data) {
 
     result[party] = result[party] || {};
 
+    leftright.forEach(leri => {
+
+      result[party][leri] = mean(data[party][leri]);
+    });
+
+    let rightValues = [];
+
+    manifestoRight.forEach(right => {
+
+      if (data[party][right]) {
+
+        rightValues.push(mean(data[party][right]));
+      }
+    });
+
+    let leftValues = [];
+
+    manifestoLeft.forEach(left => {
+
+      if (data[party][left]) {
+        leftValues.push(mean(data[party][left]));
+      }
+    });
+
+    result[party].rightValues = mean(rightValues);
+    result[party].leftValues = mean(leftValues);
+
     maxima.forEach(maximum => {
 
       result[party][maximum] = summarize(data[party][maximum]);
+    });
+
+    domains.forEach(domain => {
+
+      result[party][domain] = mean(data[party][domain]);
     });
   });
 
   console.log(result);
   return result;
+}
+
+function mean(arr) {
+
+  return arr.reduce(function (acc, curr) {
+
+    return acc + curr;
+  }) / arr.length;
 }
 
 function summarize(arr) {
