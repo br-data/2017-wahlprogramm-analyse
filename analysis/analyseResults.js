@@ -105,11 +105,20 @@ const manifestoLeft = [
 
 (function init() {
 
+  let result, aggregation, calculation, transposition;
+
   loadFile('../data/resultate/results.csv', data => {
 
     data = parse(data);
     data = transform(data);
-    data = aggregate(data);
+
+    aggregation = aggregate(data);
+    calculation = calculate(aggregation);
+    result = merge(aggregation, calculation);
+
+    transposition = transpose(result);
+
+    console.log(transposition);
 
     //saveFile('./output/policy.json', JSON.stringify(data, null, 2));
   });
@@ -192,33 +201,6 @@ function aggregate(data) {
 
     result[party] = result[party] || {};
 
-    leftright.forEach(leri => {
-
-      result[party][leri] = mean(data[party][leri]);
-    });
-
-    let rightValues = [];
-
-    manifestoRight.forEach(right => {
-
-      if (data[party][right]) {
-
-        rightValues.push(mean(data[party][right]));
-      }
-    });
-
-    let leftValues = [];
-
-    manifestoLeft.forEach(left => {
-
-      if (data[party][left]) {
-        leftValues.push(mean(data[party][left]));
-      }
-    });
-
-    result[party].rightValues = mean(rightValues);
-    result[party].leftValues = mean(leftValues);
-
     maxima.forEach(maximum => {
 
       result[party][maximum] = summarize(data[party][maximum]);
@@ -228,10 +210,76 @@ function aggregate(data) {
 
       result[party][domain] = mean(data[party][domain]);
     });
+
+    leftright.forEach(leri => {
+
+      result[party][leri + '_mean'] = mean(data[party][leri]);
+      result[party][leri + '_median'] = median(data[party][leri]);
+      result[party][leri + '_stddev'] = stdDev(data[party][leri]);
+    });
+
+    result[party].rile_mean = result[party].left_mean - result[party].right_mean;
+    result[party].rile_median = result[party].left_median - result[party].right_median;
+    result[party].rile_stddev_hack = (result[party].left_stddev + result[party].right_stddev) / 2;
   });
 
-  console.log(result);
   return result;
+}
+
+function calculate(data) {
+
+  let result = {};
+
+  parties.forEach(party => {
+
+    result[party] = result[party] || {};
+
+    result[party].right_calc = 0;
+
+    manifestoRight.forEach(right => {
+
+      result[party].right_calc += data[party]['max_manifesto'][right] || 0;
+    });
+
+    result[party].left_calc = 0;
+
+    manifestoLeft.forEach(left => {
+
+      result[party].left_calc += data[party]['max_manifesto'][left] || 0;
+    });
+
+    result[party].rile_calc = (result[party].right_calc - result[party].left_calc) /
+      (result[party].right_calc + result[party].left_calc);
+    result[party].rile_calc = round(result[party].rile_calc);
+  });
+
+  return result;
+}
+
+function transpose(data) {
+
+}
+
+function merge(obj1, obj2) {
+
+  let result = {};
+
+  for (var prop in obj1) {
+
+    if (obj1.hasOwnProperty(prop)) {
+
+      result[prop] = result[prop] || {};
+
+      Object.assign(result[prop], obj1[prop], obj2[prop]);
+    }
+  }
+
+  return result;
+}
+
+function round(float) {
+
+  return Math.round(float * 100) / 100;
 }
 
 function mean(arr) {
@@ -240,6 +288,36 @@ function mean(arr) {
 
     return acc + curr;
   }) / arr.length;
+}
+
+function median(arr) {
+
+  var middle = Math.floor(arr.length / 2);
+
+  arr.sort(function (a, b) { return a - b; });
+
+  if (arr.length % 2) {
+
+    return arr[middle];
+  } else {
+
+    return (arr[middle - 1] + arr[middle]) / 2.0;
+  }
+}
+
+function stdDev(arr) {
+
+  var squareDiffs = arr.map(function (value) {
+
+    var diff = value - mean(arr);
+    var sqrDiff = diff * diff;
+
+    return sqrDiff;
+  });
+
+  var variance = mean(squareDiffs);
+
+  return Math.sqrt(variance);
 }
 
 function summarize(arr) {
