@@ -120,7 +120,7 @@ const manifestoLeft = [
 
     console.log(transposition);
 
-    //saveFile('./output/policy.json', JSON.stringify(data, null, 2));
+    saveFile('./result.json', JSON.stringify(transposition, null, 2));
   });
 })();
 
@@ -203,7 +203,7 @@ function aggregate(data) {
 
     maxima.forEach(maximum => {
 
-      result[party][maximum] = summarize(data[party][maximum]);
+      result[party][maximum] = count(data[party][maximum]);
     });
 
     domains.forEach(domain => {
@@ -258,6 +258,19 @@ function calculate(data) {
 
 function transpose(data) {
 
+  let result = {};
+
+  parties.forEach(party => {
+
+    for (var prop in data[party]) {
+
+      result[prop] = result[prop] || {};
+
+      result[prop][party] = data[party][prop];
+    }
+  });
+
+  return result;
 }
 
 function merge(obj1, obj2) {
@@ -266,7 +279,7 @@ function merge(obj1, obj2) {
 
   for (var prop in obj1) {
 
-    if (obj1.hasOwnProperty(prop)) {
+    if (obj1.hasOwnProperty(prop) && obj2.hasOwnProperty(prop)) {
 
       result[prop] = result[prop] || {};
 
@@ -320,7 +333,7 @@ function stdDev(arr) {
   return Math.sqrt(variance);
 }
 
-function summarize(arr) {
+function count(arr) {
 
   return arr.reduce(function (acc, curr) {
 
@@ -334,4 +347,19 @@ function summarize(arr) {
 
     return acc;
   }, {});
+}
+
+function saveFile(relativePath, string) {
+
+  relativePath = path.normalize(relativePath);
+
+  console.log('Saved file', relativePath);
+
+  try {
+
+    return fs.writeFileSync(relativePath, string, 'utf8');
+  } catch (error) {
+
+    console.log(error);
+  }
 }
