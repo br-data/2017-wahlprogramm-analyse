@@ -119,11 +119,11 @@ const manifestoLeft = [
 
     transposition = transpose(result);
 
-    saveFile('./max_domain.csv', stringify(transposition.max_domain));
-    saveFile('./max_manifesto.csv', stringify(transposition.max_manifesto));
-    saveFile('./max_leftright.csv', stringify(transposition.max_leftright));
+    saveFile('./results/max_domain.csv', stringify(transposition.max_domain));
+    saveFile('./results/max_manifesto.csv', stringify(transposition.max_manifesto));
+    saveFile('./results/max_leftright.csv', stringify(transposition.max_leftright));
 
-    saveFile('./result.json', JSON.stringify(transposition, null, 2));
+    saveFile('./results/result.json', JSON.stringify(transposition, null, 2));
   });
 })();
 
