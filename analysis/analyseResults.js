@@ -181,6 +181,12 @@ function transform(data) {
 
       party[leri] = party[leri] || [];
       party[leri].push(paragraph[leri]);
+
+      if (paragraph.max_leftright == leri) {
+
+        party['max_domain_' + leri] = party['max_domain_' + leri] || [];
+        party['max_domain_' + leri].push(paragraph.max_domain);
+      }
     });
 
     maxima.forEach(maximum => {
@@ -218,21 +224,17 @@ function aggregate(data) {
       result[party][maximum] = count(data[party][maximum]);
     });
 
-    domains.forEach(domain => {
-
-      result[party][domain] = mean(data[party][domain]);
-    });
-
     leftright.forEach(leri => {
 
       result[party][leri + '_mean'] = mean(data[party][leri]);
       result[party][leri + '_median'] = median(data[party][leri]);
       result[party][leri + '_stddev'] = stdDev(data[party][leri]);
+
+      result[party]['max_domain_' + leri] = count(data[party]['max_domain_' + leri]);
     });
 
     result[party].rile_mean = result[party].left_mean - result[party].right_mean;
     result[party].rile_median = result[party].left_median - result[party].right_median;
-    result[party].rile_stddev_hack = (result[party].left_stddev + result[party].right_stddev) / 2;
   });
 
   return result;
@@ -247,17 +249,16 @@ function calculate(data) {
     result[party] = result[party] || {};
 
     result[party].right_calc = 0;
+    result[party].left_calc = 0;
 
     manifestoRight.forEach(right => {
 
-      result[party].right_calc += data[party]['max_manifesto'][right] || 0;
+      result[party].right_calc += data[party].max_manifesto[right] || 0;
     });
-
-    result[party].left_calc = 0;
 
     manifestoLeft.forEach(left => {
 
-      result[party].left_calc += data[party]['max_manifesto'][left] || 0;
+      result[party].left_calc += data[party].max_manifesto[left] || 0;
     });
 
     result[party].rile_calc = (result[party].right_calc - result[party].left_calc) /
