@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const csvParse = require('csv-parse/lib/sync');
-const csvStringify = require('json2csv');
 
 const parties = [
   'AfD',
@@ -119,11 +118,7 @@ const manifestoLeft = [
 
     transposition = transpose(result);
 
-    saveFile('./results/max_domain.csv', stringify(transposition.max_domain));
-    saveFile('./results/max_manifesto.csv', stringify(transposition.max_manifesto));
-    saveFile('./results/max_leftright.csv', stringify(transposition.max_leftright));
-
-    saveFile('./results/result.json', JSON.stringify(transposition, null, 2));
+    saveFile('./results/results.json', JSON.stringify(transposition, null, 2));
   });
 })();
 
@@ -154,19 +149,6 @@ function parse(data) {
 
     return result;
   });
-}
-
-function stringify(data) {
-
-  let flat = [];
-
-  for (var prop in data) {
-
-    data[prop].party = prop;
-    flat.push(data[prop]);
-  }
-
-  return csvStringify({ data: flat });
 }
 
 function transform(data) {
