@@ -9,6 +9,8 @@ function groupedBarChart(id, data) {
 
     var result = {};
 
+    data = JSON.parse(JSON.stringify(data));
+
     result = Object.keys(data).map(function (key) {
 
       var count = Object.keys(data[key]).reduce(function (acc, curr) {

@@ -215,8 +215,8 @@ function aggregate(data) {
       result[party]['max_domain_' + leri] = count(data[party]['max_domain_' + leri]);
     });
 
-    result[party].rile_mean = result[party].left_mean - result[party].right_mean;
-    result[party].rile_median = result[party].left_median - result[party].right_median;
+    result[party].rile_mean = result[party].right_mean - result[party].left_mean;
+    result[party].rile_median = result[party].right_mean - result[party].left_mean;
   });
 
   return result;
@@ -224,11 +224,25 @@ function aggregate(data) {
 
 function calculate(data) {
 
+  console.log(data);
+
   let result = {};
 
   parties.forEach(party => {
 
     result[party] = result[party] || {};
+
+    domains.forEach(domain => {
+
+      result[party].max_domain_rile = result[party].max_domain_rile || {};
+
+      data[party].max_domain_right[domain] = data[party].max_domain_right[domain] || 0;
+      data[party].max_domain_left[domain] = data[party].max_domain_left[domain] || 0;
+
+      result[party].max_domain_rile[domain] =
+        (data[party].max_domain_right[domain] - data[party].max_domain_left[domain]) /
+        (data[party].max_domain_right[domain] + data[party].max_domain_left[domain]);
+    });
 
     result[party].right_calc = 0;
     result[party].left_calc = 0;
@@ -247,6 +261,8 @@ function calculate(data) {
       (result[party].right_calc + result[party].left_calc);
     result[party].rile_calc = round(result[party].rile_calc);
   });
+
+  console.log(result);
 
   return result;
 }

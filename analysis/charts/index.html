@@ -90,8 +90,11 @@
 
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
 
-    <p class="small-margin"><strong>afd:</strong></p>
-    <svg id="afd" width="720" height="75"></svg>
+    <p class="small-margin"><strong>Welfare and Quality of Life:</strong></p>
+    <svg id="welfare" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>Economy:</strong></p>
+    <svg id="economy" width="720" height="75"></svg>
   </article>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.2/d3.min.js"></script>
@@ -116,7 +119,23 @@
       rightLeftChart('rile-mean', data.rile_mean);
       rightLeftChart('rile-median', data.rile_median);
 
-      rightLeftChart('afd', data.rile_median);
+      var welfare = {};
+
+      Object.keys(data.max_domain_rile).forEach(function (key) {
+
+        welfare[key] = data.max_domain_rile[key]['Welfare and Quality of Life'];
+      });
+
+      rightLeftChart('welfare', welfare);
+
+      var economy = {};
+
+      Object.keys(data.max_domain_rile).forEach(function (key) {
+
+        economy[key] = data.max_domain_rile[key]['Economy'];
+      });
+
+      rightLeftChart('economy', economy);
     }
 
   </script>
