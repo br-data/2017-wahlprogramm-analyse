@@ -20,13 +20,9 @@
     body {
       margin: 0;
       font-family: "Open Sans", Helvetica, Arial, sans-serif;
-      font-size: 1.1em;
+      font-size: 1em;
       font-weight: 300;
-      line-height: 1.6;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-       font-weight: 400;
+      line-height: 1.5;
     }
 
     article {
@@ -43,6 +39,26 @@
       font-size: 12px;
       font-weight: 300;
     }
+
+    h1, h2, h3, h4, h5, h6 {
+       font-weight: 400;
+    }
+
+    h3 {
+      margin-bottom: .5em;
+    }
+
+    p {
+      margin: 1em 0 2em;
+    }
+
+    b, strong {
+      font-weight: 600;
+    }
+
+    .small-margin {
+      margin-bottom: .5em;
+    }
   </style>
 
 </head>
@@ -58,14 +74,31 @@
 
     <svg id="max-domain" width="720" height="400"></svg>
 
+    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
 
+    <h3>Wo stehen die Parteien politisch?</h3>
+    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
 
+    <p class="small-margin"><strong>rile_calc:</strong></p>
+    <svg id="rile-calc" width="720" height="75"></svg>
 
+    <p class="small-margin"><strong>rile_mean:</strong></p>
+    <svg id="rile-mean" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>rile_median:</strong></p>
+    <svg id="rile-median" width="720" height="75"></svg>
+
+    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+
+    <p class="small-margin"><strong>afd:</strong></p>
+    <svg id="afd" width="720" height="75"></svg>
   </article>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.2/d3.min.js"></script>
 
+  <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="groupedBarChart.js"></script>
+  <script type="text/javascript" src="rightLeftChart.js"></script>
 
   <script type="text/javascript">
     d3.json('../results/results.json', function (data) {
@@ -76,7 +109,14 @@
     function init(data) {
 
       console.log(data);
+
       groupedBarChart('max-domain', data.max_domain);
+
+      rightLeftChart('rile-calc', data.rile_calc);
+      rightLeftChart('rile-mean', data.rile_mean);
+      rightLeftChart('rile-median', data.rile_median);
+
+      rightLeftChart('afd', data.rile_median);
     }
 
   </script>
