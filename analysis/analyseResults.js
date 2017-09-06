@@ -284,8 +284,6 @@ function calculate(data) {
     result[party].rile_calc = round(result[party].rile_calc);
   });
 
-  console.log(result);
-
   return result;
 }
 

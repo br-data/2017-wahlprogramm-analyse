@@ -59,6 +59,37 @@
     .small-margin {
       margin-bottom: .5em;
     }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    tr:nth-of-type(even) {
+      background: #f0f0f4;
+    }
+
+    th {
+      background: #f0f0f4;
+      font-weight: 600;
+      cursor: s-resize;
+      background-repeat: no-repeat;
+      background-position: 3% center;
+    }
+
+    td, th {
+      padding: 6px;
+      border: 1px solid #ccd;
+      text-align: left;
+    }
+
+    th.des:after {
+      content: " ↑";
+    }
+
+    th.aes:after {
+      content: " ↓";
+    }
   </style>
 
 </head>
@@ -75,6 +106,8 @@
     <svg id="max-domain" width="720" height="400"></svg>
 
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+
+    <div id="max-domain-table"></div>
 
     <h3>Wo stehen die Parteien politisch?</h3>
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
@@ -100,6 +133,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.2/d3.min.js"></script>
 
   <script type="text/javascript" src="utils.js"></script>
+  <script type="text/javascript" src="table.js"></script>
   <script type="text/javascript" src="groupedBarChart.js"></script>
   <script type="text/javascript" src="rightLeftChart.js"></script>
 
@@ -114,6 +148,8 @@
       console.log(data);
 
       groupedBarChart('max-domain', data.max_domain);
+
+      table('max-domain-table', data.max_domain);
 
       rightLeftChart('rile-calc', data.rile_calc);
       rightLeftChart('rile-mean', data.rile_mean);
