@@ -131,6 +131,9 @@ def plotAll():
         colors.append(color)
 
     df = pd.concat(predictions)
+
+    df.to_csv(os.path.join(RESULT_FOLDER, "results.csv"))
+
     # compute most distant statements per topic, discard result as it's csv-dumped
     _ = compute_most_distant_statements_per_topic(df)
     compute_word_code_correlations(df)
@@ -142,7 +145,6 @@ def plotAll():
         idx = df[domains].apply(pd.Series.argmax,axis=1)==domain
         plot_left_right(df[idx], colors, plot_suffix = domain)
 
-    df.to_csv(os.path.join(RESULT_FOLDER, "results.csv"))
 
 def plot_left_right(df,
     colors,
