@@ -101,25 +101,28 @@
 
     <h1>Analyse der Wahlprogramme zur Bundestagswahl 2017</h1>
 
+    <p>Vorbemerkung: Für das <a href="https://manifestoproject.wzb.eu/" target=blank>Manifesto Project</a> von DFG und WZB codieren Wissenschaftler händisch Wahlprogramme. Codieren heißt: Sie weisen allen Aussagen Manifesto-Codes zu, die die angesprochenen Inhalte kategorisieren. Jeweils mehrere Manifesto-Codes bilden eine übergeordnete politische Domain. Domains sind die großen Politikfelder, die von den Parteien thematisiert werden. Diese sind: External Relations, Freedom and Democracy, Political System, Economy, Welfare and Quality of Life, Fabric of Society, Social Groups. Einzelnen Manifesto-Codes wird außerdem zugeschrieben, eine politisch linke oder rechte Ausrichtung zu repräsentieren.</p>
+
+    <p>Für die nachfolgende Analyse haben wir mit unserem Kooperationspartner Felix Bießmann einen Machine-Learning-Algorithmus mit den Daten (Codierungen der deutschen Wahlprogramme seit 2005) des Manifesto Project trainiert. Der Algorithmus hat im zweiten Schritt die aktuellen Wahlprogramme analysiert und Scores für die Manifesto-Codes und Rechts-Links-Einteilung errechnet. Diese Scores bilden die Grundlage für die unten stehende Auswertung. Die Frage, ob die Links-Rechts-Einteilung überhaupt noch sinnvoll ist, möchten wir, z.B. anhand der AfD, aufgreifen.</p>
 
 
     <h3>Auf welche Themen legen die Parteien besonders viel Wert?</h3>
 
-    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+    <p>Die nachfolgende Auswertung zeigt, wie sich die Aussagen in den einzelnen Parteiprogrammen relativ über die Domains verteilen. Demnach steht bei allen Parteien die Domain "Welfare and Quality of Life" im Mittelpunkt.</p>
 
     <svg id="max-domain" width="720" height="400"></svg>
 
-    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+    <p>Die Parteiprogramme sind in der Länge sehr unterschiedlich. Dementsprechend variiert auch die Anzahl der Aussagen pro Domain. Spannend hier könnte z.B. sein: Die SPD spricht sehr wenige wirtschaftliche Themen (Domain "Economy") an, für die FDP ist die Domain "Freedom and Democracy" sehr wichtig. Die AfD trifft in der Domain "Fabric of Society" die meisten Aussagen.</p>
 
     <p class="small-margin"><strong>Anzahl der Aussagen pro Partei und Politikfeld:</strong></p>
 
     <div id="max-domain-table"></div>
 
-    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+    <p>(Die Tabelle kann mit Klick auf die Überschriften in den Spalten auf- und absteigend sortiert werden)</p>
 
-    <h3>Wo stehen die Parteien politisch?</h3>
+    <h3>Wo stehen die Parteien in den einzelnen Politikfeldern auf der Links-Rechts-Skala?</h3>
 
-    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+    <p>Die folgende Auswertung zeigt, wie sich die Parteien in den einzelnen Domains auf einer Links-Rechts-Skala einordnen. Die Farbcodes entsprechen den oben verwendeten Farben.</p>
 
     <p class="small-margin"><strong>AfD pro Politikfeld:</strong></p>
     <svg id="afd" width="720" height="75"></svg>
