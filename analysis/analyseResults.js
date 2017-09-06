@@ -136,6 +136,7 @@ function loadFile(filePath, callback) {
   });
 }
 
+// Read CSV lines to JavaScript object(s)
 function parse(data) {
 
   const options = {
@@ -151,6 +152,7 @@ function parse(data) {
   });
 }
 
+// Transform properties per paragraphs to properties per party
 function transform(data) {
 
   let result = {};
@@ -161,13 +163,16 @@ function transform(data) {
 
     leftright.forEach(leri => {
 
+      // Save all left/right prediction values per party
       party[leri] = party[leri] || [];
       party[leri].push(paragraph[leri]);
 
+      // Save all left/right prediction values per party AND max_domain
       party['max_domain_' + leri] = party['max_domain_' + leri] || {};
       party['max_domain_' + leri][paragraph.max_domain] = party['max_domain_' + leri][paragraph.max_domain] || [];
       party['max_domain_' + leri][paragraph.max_domain].push(paragraph[leri]);
 
+      // Save all max_leftright occurences per party AND max_domain
       if (paragraph.max_leftright == leri) {
 
         party['max_domain_max_' + leri] = party['max_domain_max_' + leri] || [];
@@ -175,18 +180,21 @@ function transform(data) {
       }
     });
 
+    // Save all maxmimum occurences (leftright, domain, manifesto) per party
     maxima.forEach(maximum => {
 
       party[maximum] = party[maximum] || [];
       party[maximum].push(paragraph[maximum]);
     });
 
+    // Save all domain prediction values per party
     domains.forEach(domain => {
 
       party[domain] = party[domain] || [];
       party[domain].push(paragraph[domain]);
     });
 
+    // Save all manifesto code prediction values per party
     manifesto.forEach(man => {
 
       party[man] = party[man] || [];
@@ -197,6 +205,7 @@ function transform(data) {
   return result;
 }
 
+// Aggregate values per property per party
 function aggregate(data) {
 
   let result = {};
@@ -205,22 +214,17 @@ function aggregate(data) {
 
     result[party] = result[party] || {};
 
-    maxima.forEach(maximum => {
-
-      result[party][maximum] = count(data[party][maximum]);
-    });
-
     leftright.forEach(leri => {
 
-      // Average right and left from right/left
+      // Average right and left from right/left per party
       result[party][leri + '_mean'] = mean(data[party][leri]);
       result[party][leri + '_median'] = median(data[party][leri]);
       result[party][leri + '_stddev'] = stdDev(data[party][leri]);
 
-      // Max right and left count from max domain
+      // Max right and left count from max_domain per party
       result[party]['max_domain_max_' + leri] = count(data[party]['max_domain_max_' + leri]);
 
-      // Average right and left from max domain
+      // Average right and left from max_domain per party
       domains.forEach(domain => {
 
         result[party]['max_domain_' + leri] = result[party]['max_domain_' + leri] || {};
@@ -228,8 +232,16 @@ function aggregate(data) {
       });
     });
 
+    // Calculate rile index from right/values per party
+    // @todo Should be done in calculate()
     result[party].rile_mean = result[party].right_mean - result[party].left_mean;
     result[party].rile_median = result[party].right_mean - result[party].left_mean;
+
+    // Count occurences (leftright, domain, manifesto) per party
+    maxima.forEach(maximum => {
+
+      result[party][maximum] = count(data[party][maximum]);
+    });
   });
 
   return result;
@@ -245,7 +257,8 @@ function calculate(data) {
 
     domains.forEach(domain => {
 
-      // Average rile from max domain
+      // Rile index from max_domain and right/left value per party
+      // @todo Objects and null values should be instantiated programmatically (lambdas)
       result[party].max_domain_rile = result[party].max_domain_rile || {};
 
       data[party].max_domain_right[domain] = data[party].max_domain_right[domain] || 0;
@@ -254,7 +267,8 @@ function calculate(data) {
       result[party].max_domain_rile[domain] =
         (data[party].max_domain_right[domain] - data[party].max_domain_left[domain]);
 
-      // Max rile from max domain
+      // Rile index from from max_domain and max_right occurences
+      // @todo Remove, because the small sample and missing values lead to weird results
       result[party].max_domain_max_rile = result[party].max_domain_max_rile || {};
 
       data[party].max_domain_max_right[domain] = data[party].max_domain_max_right[domain] || 0;
@@ -265,20 +279,23 @@ function calculate(data) {
         (data[party].max_domain_max_right[domain] + data[party].max_domain_max_left[domain]);
     });
 
-    // Rile from manifesto codes
+    // Rile index from manifesto codes (as defined in Manifesto codebook)
     result[party].right_calc = 0;
     result[party].left_calc = 0;
 
+    // Count right occurences
     manifestoRight.forEach(right => {
 
       result[party].right_calc += data[party].max_manifesto[right] || 0;
     });
 
+    // Count left occurences
     manifestoLeft.forEach(left => {
 
       result[party].left_calc += data[party].max_manifesto[left] || 0;
     });
 
+    // Calculate rile index (right - left / right + left)
     result[party].rile_calc = (result[party].right_calc - result[party].left_calc) /
       (result[party].right_calc + result[party].left_calc);
     result[party].rile_calc = round(result[party].rile_calc);
@@ -287,6 +304,7 @@ function calculate(data) {
   return result;
 }
 
+// Transform object from "by party" to "by property"
 function transpose(data) {
 
   let result = {};
@@ -304,6 +322,7 @@ function transpose(data) {
   return result;
 }
 
+// Merge different properties from differnt objects into one object
 function merge(obj1, obj2) {
 
   let result = {};
@@ -321,11 +340,13 @@ function merge(obj1, obj2) {
   return result;
 }
 
+// Round by two decimal places
 function round(float) {
 
   return Math.round(float * 100) / 100;
 }
 
+// Calculate arithmetic mean from an array of values
 function mean(arr) {
 
   return arr.reduce(function (acc, curr) {
@@ -334,6 +355,7 @@ function mean(arr) {
   }) / arr.length;
 }
 
+// Calculate median from an array of values
 function median(arr) {
 
   var middle = Math.floor(arr.length / 2);
@@ -349,6 +371,7 @@ function median(arr) {
   }
 }
 
+// Calculate standard deviation from an array of values
 function stdDev(arr) {
 
   var squareDiffs = arr.map(function (value) {
@@ -364,6 +387,7 @@ function stdDev(arr) {
   return Math.sqrt(variance);
 }
 
+// Count occurences of uniqe values in an array
 function count(arr) {
 
   return arr.reduce(function (acc, curr) {
