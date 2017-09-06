@@ -164,10 +164,14 @@ function transform(data) {
       party[leri] = party[leri] || [];
       party[leri].push(paragraph[leri]);
 
+      party['max_domain_' + leri] = party['max_domain_' + leri] || {};
+      party['max_domain_' + leri][paragraph.max_domain] = party['max_domain_' + leri][paragraph.max_domain] || [];
+      party['max_domain_' + leri][paragraph.max_domain].push(paragraph[leri]);
+
       if (paragraph.max_leftright == leri) {
 
-        party['max_domain_' + leri] = party['max_domain_' + leri] || [];
-        party['max_domain_' + leri].push(paragraph.max_domain);
+        party['max_domain_max_' + leri] = party['max_domain_max_' + leri] || [];
+        party['max_domain_max_' + leri].push(paragraph.max_domain);
       }
     });
 
@@ -208,11 +212,20 @@ function aggregate(data) {
 
     leftright.forEach(leri => {
 
+      // Average right and left from right/left
       result[party][leri + '_mean'] = mean(data[party][leri]);
       result[party][leri + '_median'] = median(data[party][leri]);
       result[party][leri + '_stddev'] = stdDev(data[party][leri]);
 
-      result[party]['max_domain_' + leri] = count(data[party]['max_domain_' + leri]);
+      // Max right and left count from max domain
+      result[party]['max_domain_max_' + leri] = count(data[party]['max_domain_max_' + leri]);
+
+      // Average right and left from max domain
+      domains.forEach(domain => {
+
+        result[party]['max_domain_' + leri] = result[party]['max_domain_' + leri] || {};
+        result[party]['max_domain_' + leri][domain] = mean(data[party]['max_domain_' + leri][domain]);
+      });
     });
 
     result[party].rile_mean = result[party].right_mean - result[party].left_mean;
@@ -224,8 +237,6 @@ function aggregate(data) {
 
 function calculate(data) {
 
-  console.log(data);
-
   let result = {};
 
   parties.forEach(party => {
@@ -234,16 +245,27 @@ function calculate(data) {
 
     domains.forEach(domain => {
 
+      // Average rile from max domain
       result[party].max_domain_rile = result[party].max_domain_rile || {};
 
       data[party].max_domain_right[domain] = data[party].max_domain_right[domain] || 0;
       data[party].max_domain_left[domain] = data[party].max_domain_left[domain] || 0;
 
       result[party].max_domain_rile[domain] =
-        (data[party].max_domain_right[domain] - data[party].max_domain_left[domain]) /
-        (data[party].max_domain_right[domain] + data[party].max_domain_left[domain]);
+        (data[party].max_domain_right[domain] - data[party].max_domain_left[domain]);
+
+      // Max rile from max domain
+      result[party].max_domain_max_rile = result[party].max_domain_max_rile || {};
+
+      data[party].max_domain_max_right[domain] = data[party].max_domain_max_right[domain] || 0;
+      data[party].max_domain_max_left[domain] = data[party].max_domain_max_left[domain] || 0;
+
+      result[party].max_domain_max_rile[domain] =
+        (data[party].max_domain_max_right[domain] - data[party].max_domain_max_left[domain]) /
+        (data[party].max_domain_max_right[domain] + data[party].max_domain_max_left[domain]);
     });
 
+    // Rile from manifesto codes
     result[party].right_calc = 0;
     result[party].left_calc = 0;
 
