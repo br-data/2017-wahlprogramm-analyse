@@ -45,7 +45,7 @@
     }
 
     h3 {
-      margin-bottom: .5em;
+      margin-bottom: 0;
     }
 
     p {
@@ -78,6 +78,7 @@
     }
 
     td, th {
+      font-size: 14px;
       padding: 6px;
       border: 1px solid #ccd;
       text-align: left;
@@ -100,34 +101,73 @@
 
     <h1>Analyse der Wahlprogramme zur Bundestagswahl 2017</h1>
 
+
+
     <h3>Auf welche Themen legen die Parteien besonders viel Wert?</h3>
+
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
 
     <svg id="max-domain" width="720" height="400"></svg>
 
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
 
+    <p class="small-margin"><strong>Anzahl der Aussagen pro Partei und Politikfeld:</strong></p>
+
     <div id="max-domain-table"></div>
 
+    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+
     <h3>Wo stehen die Parteien politisch?</h3>
-    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-
-    <p class="small-margin"><strong>rile_calc:</strong></p>
-    <svg id="rile-calc" width="720" height="75"></svg>
-
-    <p class="small-margin"><strong>rile_mean:</strong></p>
-    <svg id="rile-mean" width="720" height="75"></svg>
-
-    <p class="small-margin"><strong>rile_median:</strong></p>
-    <svg id="rile-median" width="720" height="75"></svg>
 
     <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
 
-    <p class="small-margin"><strong>Welfare and Quality of Life:</strong></p>
+    <p class="small-margin"><strong>AfD pro Politikfeld:</strong></p>
+    <svg id="afd" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>CDU/CSU pro Politikfeld:</strong></p>
+    <svg id="union" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>FDP pro Politikfeld:</strong></p>
+    <svg id="fdp" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>SPD pro Politikfeld:</strong></p>
+    <svg id="spd" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>Grüne pro Politikfeld:</strong></p>
+    <svg id="gruene" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>Die Linke pro Politikfeld:</strong></p>
+    <svg id="linke" width="720" height="75"></svg>
+
+    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+
+    <p class="small-margin"><strong>Welfare and Quality of Life pro Partei:</strong></p>
     <svg id="welfare" width="720" height="75"></svg>
 
-    <p class="small-margin"><strong>Economy:</strong></p>
+    <p class="small-margin"><strong>Economy pro Partei:</strong></p>
     <svg id="economy" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>External Relations pro Partei:</strong></p>
+    <svg id="external" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>Fabric of Society pro Partei:</strong></p>
+    <svg id="fabric" width="720" height="75"></svg>
+
+    <h3>Überblick</h3>
+
+    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
+
+    <p class="small-margin"><strong>Rechts/Links nach Manifesto-Definition pro Partei:</strong></p>
+    <svg id="rile-calc" width="720" height="75"></svg>
+
+    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+
+    <p class="small-margin"><strong>Rechts/Links des Parteiprogramm pro Partei:</strong></p>
+    <svg id="manifesto" width="720" height="75"></svg>
+
+    <h3>Methode</h3>
+
+    <p>Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien über 5% (nach Umfragen) zur Bundestagswahl 2017. Die Wahlprogramme wurde automatisiert pro Absatz nach politischer Einstellung und Politikfeld eingeordnet. Der Einordnung liegt ein Machine-Learning-Algorithmus zugrunde, welcher mit Daten des Manifesto-Projekt trainiert wurde. Das Manifesto-Projekt untersucht Parteiprogramme aus verschiedenen Ländern auf ihre Inhalte und politische Positionen. Die Klassifizierung der Wahlprogramme folgt dem gleichen Prinzip wie die <a href="https://manifestoproject.wzb.eu/down/documentation/codebook_MPDataset_MPDS2015a.pdf">Klassifizierung der Parteiprogramme</a>.</p>
   </article>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.2/d3.min.js"></script>
@@ -147,13 +187,43 @@
 
       console.log(data);
 
+      var manifesto = {
+        'AfD': -0.15,
+        'CDU/CSU': 0.1,
+        'Die Linke': -0.39,
+        'FDP': 0.06,
+        'Grüne': -0.36,
+        'SPD': -0.14
+      };
+
+      var categoryColors = {
+        'Political System': '#8dd3c7',
+        'Freedom and Democracy': '#bebada',
+        'External Relations': '#fb8072',
+        'Economy': '#80b1d3',
+        'Welfare and Quality of Life': '#fdb462',
+        'Fabric of Society': '#b3de69'
+      };
+
+      var partyColors = {
+        'AfD': '#129ee6',
+        'CDU/CSU': '#121212',
+        'FDP': '#ffdd00',
+        'SPD': '#d71f1d',
+        'Grüne': '#0a8000',
+        'Die Linke': '#be3075'
+      };
+
       groupedBarChart('max-domain', data.max_domain);
 
       table('max-domain-table', data.max_domain);
 
-      rightLeftChart('rile-calc', data.rile_calc);
-      rightLeftChart('rile-mean', data.rile_mean);
-      rightLeftChart('rile-median', data.rile_median);
+      rightLeftChart('afd', data.max_domain_rile['AfD'], categoryColors);
+      rightLeftChart('union', data.max_domain_rile['CDU/CSU'], categoryColors);
+      rightLeftChart('fdp', data.max_domain_rile['FDP'], categoryColors);
+      rightLeftChart('spd', data.max_domain_rile['SPD'], categoryColors);
+      rightLeftChart('gruene', data.max_domain_rile['Grüne'], categoryColors);
+      rightLeftChart('linke', data.max_domain_rile['Die Linke'], categoryColors);
 
       var welfare = {};
 
@@ -162,7 +232,7 @@
         welfare[key] = data.max_domain_rile[key]['Welfare and Quality of Life'];
       });
 
-      rightLeftChart('welfare', welfare);
+      rightLeftChart('welfare', welfare, partyColors);
 
       var economy = {};
 
@@ -171,7 +241,31 @@
         economy[key] = data.max_domain_rile[key]['Economy'];
       });
 
-      rightLeftChart('economy', economy);
+      rightLeftChart('economy', economy, partyColors);
+
+      var external = {};
+
+      Object.keys(data.max_domain_rile).forEach(function (key) {
+
+        external[key] = data.max_domain_rile[key]['External Relations'];
+      });
+
+      rightLeftChart('external', external, partyColors);
+
+      rightLeftChart('economy', economy, partyColors);
+
+      var fabric = {};
+
+      Object.keys(data.max_domain_rile).forEach(function (key) {
+
+        fabric[key] = data.max_domain_rile[key]['Fabric of Society'];
+      });
+
+      rightLeftChart('fabric', fabric, partyColors);
+
+      rightLeftChart('rile-calc', data.rile_calc, partyColors);
+
+      rightLeftChart('manifesto', manifesto, partyColors);
     }
 
   </script>

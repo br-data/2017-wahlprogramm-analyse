@@ -110,6 +110,6 @@ function groupedBarChart(id, data) {
         .attr('x', width - 24)
         .attr('y', 9.5)
         .attr('dy', '0.15em')
-        .text(function(d) { return d; });
+        .text(function(d) { console.log(d);return d; });
   }
 }

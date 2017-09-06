@@ -1,8 +1,6 @@
-function rightLeftChart(id, data) {
+function rightLeftChart(id, data, colors) {
 
   var margin = { top: 15, right: 20, bottom: 20, left: 10 };
-
-  var colors = { afd: '#129ee6', cducsu: '#121212', fdp: '#ffdd00', spd: '#d71f1d', grne: '#0a8000', dielinke: '#be3075' }
 
   var chart, plot, svg, group, max, min, xScale, xAxis, width, height, timeout;
 
@@ -63,16 +61,11 @@ function rightLeftChart(id, data) {
         .attr('height', 15)
         .attr('stroke-width', 2)
         .attr('stroke', function (d) {
-          return colors[sanitize(d.party)];
+          return colors[d.party];
         })
         .attr('fill-opacity', 0.5)
         .attr('fill', function (d) {
-          return colors[sanitize(d.party)];
+          return colors[d.party];
         });
-
-  }
-
-  function sanitize(input) {
-    return input.replace(/[^a-zA-Z]/g, '').toLowerCase();
   }
 }
