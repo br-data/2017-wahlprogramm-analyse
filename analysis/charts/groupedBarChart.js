@@ -1,4 +1,4 @@
-function groupedBarChart(id, data) {
+function groupedBarChart(id, data, colors) {
 
   (function init() {
 
@@ -70,7 +70,7 @@ function groupedBarChart(id, data) {
         .attr('y', function(d) { return y(d.value); })
         .attr('width', x1.bandwidth())
         .attr('height', function(d) { return height - y(d.value); })
-        .attr('fill', function(d) { return z(d.key); });
+        .attr('fill', function(d) { return colors[d.key]; });
 
     g.append('g')
         .attr('class', 'axis')
