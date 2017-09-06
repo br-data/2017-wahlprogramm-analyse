@@ -1,0 +1,637 @@
+{
+  "max_domain": {
+    "AfD": {
+      "Political System": 7,
+      "External Relations": 10,
+      "Freedom and Democracy": 17,
+      "Economy": 22,
+      "Welfare and Quality of Life": 49,
+      "Fabric of Society": 20
+    },
+    "CDU/CSU": {
+      "Fabric of Society": 11,
+      "Political System": 7,
+      "Economy": 22,
+      "Welfare and Quality of Life": 18,
+      "External Relations": 10,
+      "Freedom and Democracy": 2
+    },
+    "FDP": {
+      "Political System": 18,
+      "Economy": 73,
+      "Welfare and Quality of Life": 90,
+      "Freedom and Democracy": 41,
+      "External Relations": 27,
+      "Fabric of Society": 16
+    },
+    "SPD": {
+      "Fabric of Society": 16,
+      "Welfare and Quality of Life": 52,
+      "Economy": 16,
+      "Freedom and Democracy": 6,
+      "Political System": 2,
+      "External Relations": 15
+    },
+    "Grüne": {
+      "Political System": 5,
+      "Welfare and Quality of Life": 53,
+      "Economy": 27,
+      "External Relations": 16,
+      "Freedom and Democracy": 13,
+      "Fabric of Society": 16
+    },
+    "Die Linke": {
+      "Welfare and Quality of Life": 57,
+      "Economy": 20,
+      "Freedom and Democracy": 9,
+      "Political System": 2,
+      "Fabric of Society": 12,
+      "External Relations": 12
+    }
+  },
+  "max_manifesto": {
+    "AfD": {
+      "political authority +": 2,
+      "europe +": 3,
+      "democracy +": 8,
+      "gov-admin efficiency +": 5,
+      "political corruption -": 1,
+      "welfare +": 17,
+      "law and order +": 7,
+      "freedom/human rights +": 8,
+      "economic orthodoxy +": 4,
+      "market regulation +": 5,
+      "national way of life +": 4,
+      "internationalism +": 4,
+      "military +": 2,
+      "infrastructure +": 6,
+      "europe -": 1,
+      "minority groups +": 5,
+      "multiculturalism +": 3,
+      "traditional morality +": 4,
+      "social justice +": 11,
+      "traditional morality -": 2,
+      "education +": 7,
+      "culture +": 3,
+      "labour +": 3,
+      "incentives +": 1,
+      "environmentalism +": 5,
+      "nationalization +": 1,
+      "agriculture +": 2,
+      "economic goals": 1
+    },
+    "CDU/CSU": {
+      "political authority +": 4,
+      "national way of life +": 2,
+      "labour +": 5,
+      "infrastructure +": 13,
+      "incentives +": 1,
+      "agriculture +": 1,
+      "gov-admin efficiency +": 2,
+      "internationalism +": 4,
+      "traditional morality +": 3,
+      "constitution +": 1,
+      "welfare +": 6,
+      "social justice +": 3,
+      "decentralism +": 2,
+      "economic goals": 1,
+      "economic orthodoxy +": 1,
+      "education +": 2,
+      "non economic groups +": 1,
+      "culture +": 1,
+      "market regulation +": 1,
+      "freedom/human rights +": 1,
+      "europe +": 5,
+      "law and order +": 2,
+      "military +": 1,
+      "environmentalism +": 3,
+      "anti-growth economy +": 1,
+      "social harmony +": 1,
+      "multiculturalism +": 2
+    },
+    "FDP": {
+      "political authority +": 6,
+      "education +": 33,
+      "social justice +": 19,
+      "culture +": 7,
+      "infrastructure +": 22,
+      "europe +": 13,
+      "incentives +": 6,
+      "gov-admin efficiency +": 18,
+      "market regulation +": 13,
+      "economic orthodoxy +": 10,
+      "agriculture +": 4,
+      "democracy +": 6,
+      "free enterprise +": 8,
+      "minority groups +": 3,
+      "freedom/human rights +": 35,
+      "environmentalism +": 10,
+      "anti-growth economy +": 1,
+      "internationalism +": 7,
+      "welfare +": 13,
+      "labour +": 7,
+      "multiculturalism +": 5,
+      "law and order +": 8,
+      "traditional morality -": 3,
+      "military +": 3,
+      "peace +": 1,
+      "protectionism -": 1,
+      "military -": 2,
+      "europe -": 1
+    },
+    "SPD": {
+      "social justice +": 14,
+      "traditional morality +": 1,
+      "education +": 5,
+      "non economic groups +": 2,
+      "labour +": 7,
+      "infrastructure +": 10,
+      "welfare +": 17,
+      "gov-admin efficiency +": 1,
+      "incentives +": 1,
+      "market regulation +": 3,
+      "freedom/human rights +": 3,
+      "law and order +": 8,
+      "decentralism +": 1,
+      "environmentalism +": 5,
+      "agriculture +": 1,
+      "democracy +": 2,
+      "social harmony +": 2,
+      "minority groups +": 1,
+      "multiculturalism +": 3,
+      "traditional morality -": 1,
+      "culture +": 5,
+      "europe +": 6,
+      "peace +": 3,
+      "military -": 1,
+      "military +": 1,
+      "internationalism +": 3
+    },
+    "Grüne": {
+      "political authority +": 4,
+      "environmentalism +": 19,
+      "agriculture +": 2,
+      "market regulation +": 8,
+      "anti-growth economy +": 5,
+      "infrastructure +": 8,
+      "internationalism +": 9,
+      "europe +": 6,
+      "democracy +": 3,
+      "military -": 1,
+      "freedom/human rights +": 11,
+      "minority groups +": 3,
+      "multiculturalism +": 5,
+      "social justice +": 13,
+      "traditional morality -": 1,
+      "law and order +": 6,
+      "social harmony +": 1,
+      "culture +": 3,
+      "education +": 3,
+      "decentralism +": 2,
+      "labour +": 7,
+      "welfare +": 8,
+      "traditional morality +": 2
+    },
+    "Die Linke": {
+      "social justice +": 14,
+      "labour +": 8,
+      "welfare +": 15,
+      "market regulation +": 5,
+      "infrastructure +": 5,
+      "nationalization +": 1,
+      "decentralism +": 1,
+      "democracy +": 5,
+      "environmentalism +": 9,
+      "education +": 6,
+      "culture +": 3,
+      "minority groups +": 3,
+      "traditional morality -": 4,
+      "freedom/human rights +": 6,
+      "non economic groups +": 3,
+      "law and order +": 4,
+      "internationalism +": 3,
+      "anti-growth economy +": 4,
+      "agriculture +": 1,
+      "military -": 5,
+      "europe +": 3,
+      "economic goals": 1,
+      "political corruption -": 1,
+      "social harmony +": 1,
+      "multiculturalism +": 1
+    }
+  },
+  "max_leftright": {
+    "AfD": {
+      "right": 55,
+      "left": 70
+    },
+    "CDU/CSU": {
+      "right": 35,
+      "left": 35
+    },
+    "FDP": {
+      "right": 139,
+      "left": 126
+    },
+    "SPD": {
+      "right": 35,
+      "left": 72
+    },
+    "Grüne": {
+      "right": 50,
+      "left": 80
+    },
+    "Die Linke": {
+      "right": 22,
+      "left": 90
+    }
+  },
+  "left_mean": {
+    "AfD": 0.29856575106261646,
+    "CDU/CSU": 0.24616154692953549,
+    "FDP": 0.2915661213235175,
+    "SPD": 0.3505616794247696,
+    "Grüne": 0.2803852076068459,
+    "Die Linke": 0.40082300945256394
+  },
+  "left_median": {
+    "AfD": 0.23622902233800422,
+    "CDU/CSU": 0.13653296068685325,
+    "FDP": 0.1961770543348836,
+    "SPD": 0.26737208247894473,
+    "Grüne": 0.11843319977264313,
+    "Die Linke": 0.37853902058027944
+  },
+  "left_stddev": {
+    "AfD": 0.23013159495460417,
+    "CDU/CSU": 0.24403214900293585,
+    "FDP": 0.24038810534036284,
+    "SPD": 0.28009871924350155,
+    "Grüne": 0.286761541545798,
+    "Die Linke": 0.30198754891869106
+  },
+  "max_domain_max_left": {
+    "AfD": {
+      "External Relations": 6,
+      "Freedom and Democracy": 7,
+      "Political System": 4,
+      "Welfare and Quality of Life": 38,
+      "Economy": 13,
+      "Fabric of Society": 2
+    },
+    "CDU/CSU": {
+      "Political System": 3,
+      "Economy": 11,
+      "Welfare and Quality of Life": 13,
+      "External Relations": 7,
+      "Fabric of Society": 1,
+      "Freedom and Democracy": 0
+    },
+    "FDP": {
+      "Welfare and Quality of Life": 65,
+      "Economy": 32,
+      "Political System": 7,
+      "Freedom and Democracy": 5,
+      "External Relations": 16,
+      "Fabric of Society": 1
+    },
+    "SPD": {
+      "Welfare and Quality of Life": 43,
+      "Economy": 11,
+      "Freedom and Democracy": 3,
+      "Fabric of Society": 2,
+      "External Relations": 13,
+      "Political System": 0
+    },
+    "Grüne": {
+      "Welfare and Quality of Life": 40,
+      "Economy": 20,
+      "External Relations": 14,
+      "Fabric of Society": 3,
+      "Freedom and Democracy": 2,
+      "Political System": 1
+    },
+    "Die Linke": {
+      "Welfare and Quality of Life": 49,
+      "Economy": 20,
+      "Freedom and Democracy": 5,
+      "Political System": 2,
+      "Fabric of Society": 3,
+      "External Relations": 11
+    }
+  },
+  "max_domain_left": {
+    "AfD": {
+      "External Relations": 0.3375487002074361,
+      "Freedom and Democracy": 0.34985092398481094,
+      "Political System": 0.19316823687979126,
+      "Economy": 0.32294959107896726,
+      "Welfare and Quality of Life": 0.364624884261292,
+      "Fabric of Society": 0.08370390911558856
+    },
+    "CDU/CSU": {
+      "External Relations": 0.37863788085382166,
+      "Freedom and Democracy": 0.1439359486735829,
+      "Political System": 0.1310756349589143,
+      "Economy": 0.17115245899590723,
+      "Welfare and Quality of Life": 0.403679257121164,
+      "Fabric of Society": 0.10981340076170841
+    },
+    "FDP": {
+      "External Relations": 0.330537407052471,
+      "Freedom and Democracy": 0.20683936911833078,
+      "Political System": 0.1579003730785315,
+      "Economy": 0.26005529311178105,
+      "Welfare and Quality of Life": 0.4018956714886283,
+      "Fabric of Society": 0.11645277999461345
+    },
+    "SPD": {
+      "External Relations": 0.48456387001525736,
+      "Freedom and Democracy": 0.3899781759643963,
+      "Political System": 0.07424803522304421,
+      "Economy": 0.3169213513099042,
+      "Welfare and Quality of Life": 0.40335317811075694,
+      "Fabric of Society": 0.10676060245444896
+    },
+    "Grüne": {
+      "External Relations": 0.5335324240078225,
+      "Freedom and Democracy": 0.21107577223775545,
+      "Political System": 0.09167398375348693,
+      "Economy": 0.3424375577796256,
+      "Welfare and Quality of Life": 0.26000727259812645,
+      "Fabric of Society": 0.10531273369724732
+    },
+    "Die Linke": {
+      "External Relations": 0.5375009001073393,
+      "Freedom and Democracy": 0.5149721407821427,
+      "Political System": 0.247956271869189,
+      "Economy": 0.4903001765287224,
+      "Welfare and Quality of Life": 0.3846694385051572,
+      "Fabric of Society": 0.13161191010441797
+    }
+  },
+  "right_mean": {
+    "AfD": 0.152878991637287,
+    "CDU/CSU": 0.14713766090515035,
+    "FDP": 0.1617971715605885,
+    "SPD": 0.0731066500888239,
+    "Grüne": 0.06988411521142064,
+    "Die Linke": 0.0002658638803959046
+  },
+  "right_median": {
+    "AfD": 0.06141066402142839,
+    "CDU/CSU": 0.0072238468014941895,
+    "FDP": 0.07683227123130593,
+    "SPD": -0.028530515417945615,
+    "Grüne": -0.05515668257803871,
+    "Die Linke": -0.07675524487443731
+  },
+  "right_stddev": {
+    "AfD": 0.21858418551920417,
+    "CDU/CSU": 0.27208740916264695,
+    "FDP": 0.23651717439911765,
+    "SPD": 0.20771412455345536,
+    "Grüne": 0.2356258551932557,
+    "Die Linke": 0.17894388903809494
+  },
+  "max_domain_max_right": {
+    "AfD": {
+      "Political System": 3,
+      "External Relations": 4,
+      "Freedom and Democracy": 10,
+      "Economy": 9,
+      "Fabric of Society": 18,
+      "Welfare and Quality of Life": 11
+    },
+    "CDU/CSU": {
+      "Fabric of Society": 10,
+      "Political System": 4,
+      "Economy": 11,
+      "Freedom and Democracy": 2,
+      "Welfare and Quality of Life": 5,
+      "External Relations": 3
+    },
+    "FDP": {
+      "Political System": 11,
+      "Economy": 41,
+      "Welfare and Quality of Life": 25,
+      "Freedom and Democracy": 36,
+      "Fabric of Society": 15,
+      "External Relations": 11
+    },
+    "SPD": {
+      "Fabric of Society": 14,
+      "Welfare and Quality of Life": 9,
+      "Economy": 5,
+      "Political System": 2,
+      "Freedom and Democracy": 3,
+      "External Relations": 2
+    },
+    "Grüne": {
+      "Political System": 4,
+      "Welfare and Quality of Life": 13,
+      "Economy": 7,
+      "External Relations": 2,
+      "Freedom and Democracy": 11,
+      "Fabric of Society": 13
+    },
+    "Die Linke": {
+      "Welfare and Quality of Life": 8,
+      "Fabric of Society": 9,
+      "External Relations": 1,
+      "Freedom and Democracy": 4,
+      "Political System": 0,
+      "Economy": 0
+    }
+  },
+  "max_domain_right": {
+    "AfD": {
+      "External Relations": 0.1277534940800582,
+      "Freedom and Democracy": 0.29860411575435075,
+      "Political System": 0.11177567285532411,
+      "Economy": 0.14894215986252385,
+      "Welfare and Quality of Life": 0.03502811742171119,
+      "Fabric of Society": 0.3490267032704847
+    },
+    "CDU/CSU": {
+      "External Relations": 0.1021385666935382,
+      "Freedom and Democracy": 0.4052669188997843,
+      "Political System": 0.3420412400501946,
+      "Economy": 0.03746112372696946,
+      "Welfare and Quality of Life": 0.010419968589261586,
+      "Fabric of Society": 0.4601567201521981
+    },
+    "FDP": {
+      "External Relations": 0.08776427710546827,
+      "Freedom and Democracy": 0.4500154381278153,
+      "Political System": 0.1555410911016293,
+      "Economy": 0.18464805157218322,
+      "Welfare and Quality of Life": 0.017903894293167574,
+      "Fabric of Society": 0.2603490079677559
+    },
+    "SPD": {
+      "External Relations": 0.014257796036078423,
+      "Freedom and Democracy": 0.13617731944709396,
+      "Political System": 0.017623806644937547,
+      "Economy": 0.07372923881839843,
+      "Welfare and Quality of Life": -0.007722338707379863,
+      "Fabric of Society": 0.373632930042495
+    },
+    "Grüne": {
+      "External Relations": 0.011858447625788776,
+      "Freedom and Democracy": 0.43974369864883267,
+      "Political System": 0.40537806411349653,
+      "Economy": -0.0341147820280629,
+      "Welfare and Quality of Life": -0.05232082596608616,
+      "Fabric of Society": 0.3028590189643764
+    },
+    "Die Linke": {
+      "External Relations": 0.017001149838753688,
+      "Freedom and Democracy": 0.2179749254471573,
+      "Political System": -0.08284487850470496,
+      "Economy": -0.06867958092537432,
+      "Welfare and Quality of Life": -0.0534604755405073,
+      "Fabric of Society": 0.2042097590700578
+    }
+  },
+  "rile_mean": {
+    "AfD": -0.14568675942532947,
+    "CDU/CSU": -0.09902388602438514,
+    "FDP": -0.129768949762929,
+    "SPD": -0.27745502933594574,
+    "Grüne": -0.21050109239542525,
+    "Die Linke": -0.40055714557216804
+  },
+  "rile_median": {
+    "AfD": -0.14568675942532947,
+    "CDU/CSU": -0.09902388602438514,
+    "FDP": -0.129768949762929,
+    "SPD": -0.27745502933594574,
+    "Grüne": -0.21050109239542525,
+    "Die Linke": -0.40055714557216804
+  },
+  "max_domain_rile": {
+    "AfD": {
+      "External Relations": -0.2097952061273779,
+      "Freedom and Democracy": -0.051246808230460184,
+      "Political System": -0.08139256402446715,
+      "Economy": -0.1740074312164434,
+      "Welfare and Quality of Life": -0.32959676683958083,
+      "Fabric of Society": 0.2653227941548961
+    },
+    "CDU/CSU": {
+      "External Relations": -0.27649931416028345,
+      "Freedom and Democracy": 0.2613309702262014,
+      "Political System": 0.2109656050912803,
+      "Economy": -0.13369133526893776,
+      "Welfare and Quality of Life": -0.3932592885319024,
+      "Fabric of Society": 0.3503433193904897
+    },
+    "FDP": {
+      "External Relations": -0.2427731299470027,
+      "Freedom and Democracy": 0.24317606900948452,
+      "Political System": -0.002359281976902189,
+      "Economy": -0.07540724153959782,
+      "Welfare and Quality of Life": -0.38399177719546074,
+      "Fabric of Society": 0.14389622797314244
+    },
+    "SPD": {
+      "External Relations": -0.47030607397917895,
+      "Freedom and Democracy": -0.25380085651730233,
+      "Political System": -0.056624228578106665,
+      "Economy": -0.24319211249150574,
+      "Welfare and Quality of Life": -0.4110755168181368,
+      "Fabric of Society": 0.266872327588046
+    },
+    "Grüne": {
+      "External Relations": -0.5216739763820337,
+      "Freedom and Democracy": 0.22866792641107722,
+      "Political System": 0.31370408036000963,
+      "Economy": -0.3765523398076885,
+      "Welfare and Quality of Life": -0.3123280985642126,
+      "Fabric of Society": 0.19754628526712908
+    },
+    "Die Linke": {
+      "External Relations": -0.5204997502685856,
+      "Freedom and Democracy": -0.2969972153349854,
+      "Political System": -0.33080115037389396,
+      "Economy": -0.5589797574540967,
+      "Welfare and Quality of Life": -0.43812991404566454,
+      "Fabric of Society": 0.07259784896563984
+    }
+  },
+  "max_domain_max_rile": {
+    "AfD": {
+      "External Relations": -0.2,
+      "Freedom and Democracy": 0.17647058823529413,
+      "Political System": -0.14285714285714285,
+      "Economy": -0.18181818181818182,
+      "Welfare and Quality of Life": -0.5510204081632653,
+      "Fabric of Society": 0.8
+    },
+    "CDU/CSU": {
+      "External Relations": -0.4,
+      "Freedom and Democracy": 1,
+      "Political System": 0.14285714285714285,
+      "Economy": 0,
+      "Welfare and Quality of Life": -0.4444444444444444,
+      "Fabric of Society": 0.8181818181818182
+    },
+    "FDP": {
+      "External Relations": -0.18518518518518517,
+      "Freedom and Democracy": 0.7560975609756098,
+      "Political System": 0.2222222222222222,
+      "Economy": 0.1232876712328767,
+      "Welfare and Quality of Life": -0.4444444444444444,
+      "Fabric of Society": 0.875
+    },
+    "SPD": {
+      "External Relations": -0.7333333333333333,
+      "Freedom and Democracy": 0,
+      "Political System": 1,
+      "Economy": -0.375,
+      "Welfare and Quality of Life": -0.6538461538461539,
+      "Fabric of Society": 0.75
+    },
+    "Grüne": {
+      "External Relations": -0.75,
+      "Freedom and Democracy": 0.6923076923076923,
+      "Political System": 0.6,
+      "Economy": -0.48148148148148145,
+      "Welfare and Quality of Life": -0.5094339622641509,
+      "Fabric of Society": 0.625
+    },
+    "Die Linke": {
+      "External Relations": -0.8333333333333334,
+      "Freedom and Democracy": -0.1111111111111111,
+      "Political System": -1,
+      "Economy": -1,
+      "Welfare and Quality of Life": -0.7192982456140351,
+      "Fabric of Society": 0.5
+    }
+  },
+  "right_calc": {
+    "AfD": 32,
+    "CDU/CSU": 17,
+    "FDP": 77,
+    "SPD": 16,
+    "Grüne": 24,
+    "Die Linke": 11
+  },
+  "left_calc": {
+    "AfD": 45,
+    "CDU/CSU": 18,
+    "FDP": 82,
+    "SPD": 41,
+    "Grüne": 39,
+    "Die Linke": 48
+  },
+  "rile_calc": {
+    "AfD": -0.17,
+    "CDU/CSU": -0.03,
+    "FDP": -0.03,
+    "SPD": -0.44,
+    "Grüne": -0.24,
+    "Die Linke": -0.63
+  }
+}
