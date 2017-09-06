@@ -28,8 +28,6 @@ function table(id, data) {
 
   function draw(id, data) {
 
-    console.log(data);
-
     var sortAscending = true;
     var table = d3.select('#' + id).append('table');
     var titles = d3.keys(data[0]);

@@ -33,6 +33,7 @@
 
     svg {
       background: #f0f0f4;
+      margin-bottom: 1em;
     }
 
     svg text {
@@ -58,6 +59,23 @@
 
     .small-margin {
       margin-bottom: .5em;
+    }
+
+    .legend {
+      margin-bottom: 1em;
+    }
+
+    .legend > div {
+      display: inline-block;
+      margin-right: .75em;
+    }
+
+    .legend .box {
+      display: inline-block;
+      margin-right: .3em;
+      width: 1em;
+      height: 1em;
+      vertical-align: sub;
     }
 
     table {
@@ -99,17 +117,24 @@
 
   <article>
 
-    <h1>Analyse der Wahlprogramme zur Bundestagswahl 2017</h1>
+    <h1 style="font-size: 2em;">Analyse der Wahlprogramme zur Bundestagswahl 2017</h1>
 
-    <p>Vorbemerkung: Für das <a href="https://manifestoproject.wzb.eu/" target=blank>Manifesto Project</a> von DFG und WZB codieren Wissenschaftler händisch Wahlprogramme. Codieren heißt: Sie weisen allen Aussagen Manifesto-Codes zu, die die angesprochenen Inhalte kategorisieren. Jeweils mehrere Manifesto-Codes bilden eine übergeordnete politische Domain. Domains sind die großen Politikfelder, die von den Parteien thematisiert werden. Diese sind: External Relations, Freedom and Democracy, Political System, Economy, Welfare and Quality of Life, Fabric of Society, Social Groups. Einzelnen Manifesto-Codes wird außerdem zugeschrieben, eine politisch linke oder rechte Ausrichtung zu repräsentieren.</p>
+    <p>Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien über 5% (nach Umfragen) zur Bundestagswahl 2017. Die Wahlprogramme wurde automatisiert pro Absatz nach politischer Einstellung (links/rechts) und Politikfeld eingeordnet. Der Einordnung liegt ein Machine-Learning-Algorithmus zugrunde, welcher mit Daten des Manifesto-Projekt trainiert wurde. </p>
 
-    <p>Für die nachfolgende Analyse haben wir mit unserem Kooperationspartner Felix Bießmann einen Machine-Learning-Algorithmus mit den Daten (Codierungen der deutschen Wahlprogramme seit 2005) des Manifesto Project trainiert. Der Algorithmus hat im zweiten Schritt die aktuellen Wahlprogramme analysiert und Scores für die Manifesto-Codes und Rechts-Links-Einteilung errechnet. Diese Scores bilden die Grundlage für die unten stehende Auswertung. Die Frage, ob die Links-Rechts-Einteilung überhaupt noch sinnvoll ist, möchten wir, z.B. anhand der AfD, aufgreifen.</p>
-
+    <p>Wir wollen anhand dieser Analyse zeigen, wo die Parteien ihre inhaltlichen Schwerpunkte haben und wie diese politisch einzuordnen sind. Die Frage, ob die Links-Rechts-Einteilung überhaupt noch sinnvoll ist, möchten wir, z.B. anhand der AfD, aufgreifen.</p>
 
     <h3>Auf welche Themen legen die Parteien besonders viel Wert?</h3>
 
     <p>Die nachfolgende Auswertung zeigt, wie sich die Aussagen in den einzelnen Parteiprogrammen relativ über die Domains verteilen. Demnach steht bei allen Parteien die Domain "Welfare and Quality of Life" im Mittelpunkt.</p>
 
+    <div class="legend">
+      <div><div class="box" style="background:#8dd3c7;"></div>Political System</div>
+      <div><div class="box" style="background:#bebada;"></div>Freedom and Democracy</div>
+      <div><div class="box" style="background:#fb8072;"></div>External Relations</div>
+      <div><div class="box" style="background:#80b1d3;"></div>Economy</div>
+      <div><div class="box" style="background:#fdb462;"></div>Welfare and Quality of Life</div>
+      <div><div class="box" style="background:#b3de69;"></div>Fabric of Society</div>
+    </div>
     <svg id="max-domain" width="720" height="400"></svg>
 
     <p>Die Parteiprogramme sind in der Länge sehr unterschiedlich. Dementsprechend variiert auch die Anzahl der Aussagen pro Domain. Spannend hier könnte z.B. sein: Die SPD spricht sehr wenige wirtschaftliche Themen (Domain "Economy") an, für die FDP ist die Domain "Freedom and Democracy" sehr wichtig. Die AfD trifft in der Domain "Fabric of Society" die meisten Aussagen.</p>
@@ -120,11 +145,20 @@
 
     <p>(Die Tabelle kann mit Klick auf die Überschriften in den Spalten auf- und absteigend sortiert werden)</p>
 
-    <h2>Achtung: Die nachfolgenden Rechts-Links-Einteilungen können sich aufgrund zum Teil fehlerhafter Werte noch ändern.</h2>
+    <h3 style="color:red;">Achtung: Die nachfolgenden Rechts-Links-Einteilungen können sich aufgrund zum Teil fehlerhafter Werte noch ändern.</h3>
 
     <h3>Die Standpunkte der Parteien, aufgeschlüsselt nach Politikfeldern/Domains</h3>
 
     <p>Die folgende Auswertung zeigt, wie sich die Parteien in den einzelnen Domains auf einer Links-Rechts-Skala einordnen. Die Farbcodes entsprechen den oben verwendeten Farben. Auffällig ist, dass sich die Grünen in den Domains "Political System", "External Relations" und "Fabric of Society" sehr nahe an der CDU/CSU bewegen.</p>
+
+    <div class="legend">
+      <div><div class="box" style="background:#8dd3c7;"></div>Political System</div>
+      <div><div class="box" style="background:#bebada;"></div>Freedom and Democracy</div>
+      <div><div class="box" style="background:#fb8072;"></div>External Relations</div>
+      <div><div class="box" style="background:#80b1d3;"></div>Economy</div>
+      <div><div class="box" style="background:#fdb462;"></div>Welfare and Quality of Life</div>
+      <div><div class="box" style="background:#b3de69;"></div>Fabric of Society</div>
+    </div>
 
     <p class="small-margin"><strong>AfD pro Politikfeld:</strong></p>
     <svg id="afd" width="720" height="75"></svg>
@@ -148,6 +182,15 @@
 
     <p>Die folgende Auswertung zeigt auf einer Links-Rechts-Skala, wie sich die Parteien in den einzelnen Domains positionieren. Überraschend ist, dass die AfD lediglich in der Domain "External Relations" eine rechte Position einnimmt. Erwartungsgemäß steht die FDP bei "Economy" am weitesten rechts, Die Linke ordnet sich in allen Domains am linken Rand ein.</p>
 
+    <div class="legend">
+      <div><div class="box" style="background:#129ee6;"></div>AfD</div>
+      <div><div class="box" style="background:#121212;"></div>CDU/CSU</div>
+      <div><div class="box" style="background:#ffdd00;"></div>FDP</div>
+      <div><div class="box" style="background:#d71f1d;"></div>SPD</div>
+      <div><div class="box" style="background:#0a8000;"></div>Grüne</div>
+      <div><div class="box" style="background:#be3075;"></div>Die Linke</div>
+    </div>
+
     <p class="small-margin"><strong>Welfare and Quality of Life pro Partei:</strong></p>
     <svg id="welfare" width="720" height="75"></svg>
 
@@ -167,12 +210,16 @@
     <p class="small-margin"><strong>Rechts/Links nach Manifesto-Definition pro Partei:</strong></p>
     <svg id="rile-calc" width="720" height="75"></svg>
 
-    <p class="small-margin"><strong>Achtung - Chart kaputt, nicht verwenden: Rechts/Links des Parteiprogramm pro Partei:</strong></p>
-    <svg id="manifesto" width="720" height="75"></svg>
+    <div class="hide" style="display:none;">
+      <p class="small-margin"><strong>Rechts/Links des Parteiprogramm pro Partei:</strong></p>
+      <svg id="manifesto" width="720" height="75"></svg>
+    </div>
 
     <h3>Methode</h3>
 
-    <p>Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien über 5% (nach Umfragen) zur Bundestagswahl 2017. Die Wahlprogramme wurde automatisiert pro Absatz nach politischer Einstellung und Politikfeld eingeordnet. Der Einordnung liegt ein Machine-Learning-Algorithmus zugrunde, welcher mit Daten des Manifesto-Projekt trainiert wurde. Das Manifesto-Projekt untersucht Parteiprogramme aus verschiedenen Ländern auf ihre Inhalte und politische Positionen. Die Klassifizierung der Wahlprogramme folgt dem gleichen Prinzip wie die <a href="https://manifestoproject.wzb.eu/down/documentation/codebook_MPDataset_MPDS2015a.pdf">Klassifizierung der Parteiprogramme</a>.</p>
+    <p>Das Manifesto-Projekt untersucht Parteiprogramme aus verschiedenen Ländern auf ihre Inhalte und politische Positionen. Für das <a href="https://manifestoproject.wzb.eu/" target=blank>Manifesto Project</a> von DFG und WZB codieren Wissenschaftler händisch Wahlprogramme. Codieren heißt: Sie weisen allen Aussagen Manifesto-Codes zu, die die angesprochenen Inhalte kategorisieren. Jeweils mehrere Manifesto-Codes bilden eine übergeordnete politische Domain. Domains sind die großen Politikfelder, die von den Parteien thematisiert werden. Diese sind: External Relations, Freedom and Democracy, Political System, Economy, Welfare and Quality of Life, Fabric of Society, Social Groups. Einzelnen Manifesto-Codes wird außerdem zugeschrieben, eine politisch linke oder rechte Ausrichtung zu repräsentieren.</p>
+
+    <p>Für die nachfolgende Analyse haben wir mit unserem Kooperationspartner Felix Bießmann einen Machine-Learning-Algorithmus mit den Daten (Codierungen der deutschen Wahlprogramme seit 2005) des Manifesto Project trainiert. Der Algorithmus hat im zweiten Schritt die aktuellen Wahlprogramme analysiert und Scores für die Manifesto-Codes und Rechts-Links-Einteilung errechnet.  Die Klassifizierung der Wahlprogramme folgt dem gleichen Prinzip wie die <a href="https://manifestoproject.wzb.eu/down/documentation/codebook_MPDataset_MPDS2015a.pdf">Klassifizierung der Parteiprogramme</a>.</p>
   </article>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.2/d3.min.js"></script>
@@ -200,6 +247,7 @@
         'Grüne': -0.36,
         'SPD': -0.14
       };
+
 
       var categoryColors = {
         'Political System': '#8dd3c7',

@@ -40,7 +40,7 @@ Alle Metriken werden jeweils pro Partei berechnet:
 **left_stddev, right_stddev**: Standardabweichung der Links oder Rechts-Werte.
 
 **left_calc, right_calc**: Anzahl der Paragraphen welche nach Manifesto-Definition ([Codebuch, Seite 28](https://manifestoproject.wzb.eu/down/documentation/codebook_MPDataset_MPDS2015a.pdf)) recht oder links sind.  
-**rile_calc**: Differenz der Summer aller Rechts-Wert und der Summe alle Links-Werte geteilt durch die Anzahl aller Werte (Σ rechts -  Σ links / Σ rechts + Σ links)
+**rile_calc**: Differenz der Summe aller rechten Paragraphen und der Summe alle linken Paragraphen geteilt durch die Anzahl aller Paragraphen (Σ rechts -  Σ links / Σ rechts + Σ links)
 
 **max_domain**: Anzahl der Paragraphen die einer Domäne (Maximum) zugeordnet wurden.  
 **max_manifesto**: Anzahl der Paragraphen die einem Manifesto-Code (Maximum) zugeordnet wurden.  

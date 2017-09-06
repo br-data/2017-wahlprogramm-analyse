@@ -89,27 +89,27 @@ function groupedBarChart(id, data) {
         .attr('text-anchor', 'start')
         .text('in %');
 
-    var legend = g.append('g')
-        .attr('font-family', 'sans-serif')
-        .attr('font-size', 10)
-        .attr('text-anchor', 'end')
-      .selectAll('g')
-      .data(keys.slice())
-      .enter().append('g')
-        .attr('transform', function(d, i) {
-          return 'translate(0, ' + i * 20 + ')';
-        });
+    // var legend = g.append('g')
+    //     .attr('font-family', 'sans-serif')
+    //     .attr('font-size', 10)
+    //     .attr('text-anchor', 'end')
+    //   .selectAll('g')
+    //   .data(keys.slice())
+    //   .enter().append('g')
+    //     .attr('transform', function(d, i) {
+    //       return 'translate(0, ' + i * 20 + ')';
+    //     });
 
-    legend.append('rect')
-        .attr('x', width - 15)
-        .attr('width', 15)
-        .attr('height', 15)
-        .attr('fill', z);
+    // legend.append('rect')
+    //     .attr('x', width - 15)
+    //     .attr('width', 15)
+    //     .attr('height', 15)
+    //     .attr('fill', z);
 
-    legend.append('text')
-        .attr('x', width - 24)
-        .attr('y', 9.5)
-        .attr('dy', '0.15em')
-        .text(function(d) { console.log(d);return d; });
+    // legend.append('text')
+    //     .attr('x', width - 24)
+    //     .attr('y', 9.5)
+    //     .attr('dy', '0.15em')
+    //     .text(function(d) { return d; });
   }
 }
