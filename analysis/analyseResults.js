@@ -468,7 +468,6 @@ function stdDev(arr) {
   return Math.sqrt(variance);
 }
 
-
 function weightedMean(values, weights) {
 
   var result = values.map(function (value, i) {

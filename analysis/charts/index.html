@@ -78,6 +78,10 @@
       vertical-align: sub;
     }
 
+    .legend .box.circle {
+      border-radius: 100%;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -155,12 +159,12 @@
     <p>Die folgende Auswertung zeigt, wie sich die Parteien in den einzelnen Domains auf einer Links-Rechts-Skala einordnen. Die Farbcodes entsprechen den oben verwendeten Farben. Auffällig ist, dass sich die Grünen in den Domains "Political System", "External Relations" und "Fabric of Society" sehr nahe an der CDU/CSU bewegen.</p>
 
     <div class="legend">
-      <div><div class="box" style="background:#8dd3c7;"></div>Political System</div>
-      <div><div class="box" style="background:#bebada;"></div>Freedom and Democracy</div>
-      <div><div class="box" style="background:#fb8072;"></div>External Relations</div>
-      <div><div class="box" style="background:#80b1d3;"></div>Economy</div>
-      <div><div class="box" style="background:#fdb462;"></div>Welfare and Quality of Life</div>
-      <div><div class="box" style="background:#b3de69;"></div>Fabric of Society</div>
+      <div><div class="box circle" style="background:#8dd3c7;"></div>Political System</div>
+      <div><div class="box circle" style="background:#bebada;"></div>Freedom and Democracy</div>
+      <div><div class="box circle" style="background:#fb8072;"></div>External Relations</div>
+      <div><div class="box circle" style="background:#80b1d3;"></div>Economy</div>
+      <div><div class="box circle" style="background:#fdb462;"></div>Welfare and Quality of Life</div>
+      <div><div class="box circle" style="background:#b3de69;"></div>Fabric of Society</div>
     </div>
 
     <p class="small-margin"><strong>AfD pro Politikfeld:</strong></p>
@@ -198,12 +202,12 @@
     <p>Die folgende Auswertung zeigt auf einer Links-Rechts-Skala, wie sich die Parteien in den einzelnen Domains positionieren. Überraschend ist, dass die AfD lediglich in der Domain "External Relations" eine rechte Position einnimmt. Erwartungsgemäß steht die FDP bei "Economy" am weitesten rechts, Die Linke ordnet sich in allen Domains am linken Rand ein.</p>
 
     <div class="legend">
-      <div><div class="box" style="background:#129ee6;"></div>AfD</div>
-      <div><div class="box" style="background:#121212;"></div>CDU/CSU</div>
-      <div><div class="box" style="background:#ffdd00;"></div>FDP</div>
-      <div><div class="box" style="background:#d71f1d;"></div>SPD</div>
-      <div><div class="box" style="background:#0a8000;"></div>Grüne</div>
-      <div><div class="box" style="background:#be3075;"></div>Die Linke</div>
+      <div><div class="box circle" style="background:#129ee6;"></div>AfD</div>
+      <div><div class="box circle" style="background:#121212;"></div>CDU/CSU</div>
+      <div><div class="box circle" style="background:#ffdd00;"></div>FDP</div>
+      <div><div class="box circle" style="background:#d71f1d;"></div>SPD</div>
+      <div><div class="box circle" style="background:#0a8000;"></div>Grüne</div>
+      <div><div class="box circle" style="background:#be3075;"></div>Die Linke</div>
     </div>
 
     <p class="small-margin"><strong>Welfare and Quality of Life pro Partei:</strong></p>
@@ -239,6 +243,13 @@
     <p class="small-margin">Gewichtetet:</p>
     <svg id="rile-weighted-median" width="720" height="75"></svg>
 
+
+    <p class="small-margin"><strong>Rechts/Links (Median plus Standardabweichung) pro Partei:</strong></p>
+    <svg id="rile-median-box" width="720" height="180"></svg>
+
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="rile-weighted-median-box" width="720" height="180"></svg>
+
     <div class="hide" style="display: none;">
       <p class="small-margin"><strong>Rechts/Links des Parteiprogramm pro Partei:</strong></p>
       <svg id="manifesto" width="720" height="75"></svg>
@@ -257,6 +268,7 @@
   <script type="text/javascript" src="table.js"></script>
   <script type="text/javascript" src="groupedBarChart.js"></script>
   <script type="text/javascript" src="rightLeftChart.js"></script>
+  <script type="text/javascript" src="boxPlot.js"></script>
 
   <script type="text/javascript">
     d3.json('../results/results.json', function (data) {
@@ -276,7 +288,6 @@
         'Grüne': -0.36,
         'SPD': -0.14
       };
-
 
       var categoryColors = {
         'Political System': '#8dd3c7',
@@ -401,6 +412,11 @@
       rightLeftChart('rile-calc', data.rile_calc, partyColors);
       rightLeftChart('rile-median', data.rile_median, partyColors);
       rightLeftChart('rile-weighted-median', data.rile_weighted_median, partyColors);
+
+      boxPlot('rile-median-box', data.rile_median, data.left_stddev, data.right_stddev, partyColors);
+
+      boxPlot('rile-weighted-median-box', data.rile_weighted_mean, data.left_weighted_stddev, data.right_weighted_stddev, partyColors);
+
 
       rightLeftChart('manifesto', manifesto, partyColors);
     }

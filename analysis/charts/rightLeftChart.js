@@ -52,13 +52,13 @@ function rightLeftChart(id, data, colors) {
 
     group = plot.append('g');
 
-    group.selectAll('rects')
+    group.selectAll('circles')
         .data(data)
         .enter()
-      .append('rect')
-        .attr('x', function (d) { return xScale(d.value); })
-        .attr('width', 15)
-        .attr('height', 15)
+      .append('circle')
+        .attr('cx', function (d) { return xScale(d.value); })
+        .attr('cy', 7.5)
+        .attr('r', 7.5)
         .attr('stroke-width', 2)
         .attr('stroke', function (d) {
           return colors[d.party];
