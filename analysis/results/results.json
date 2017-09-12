@@ -171,6 +171,56 @@
       "Fabric of Society": 0.2206205097985455
     }
   },
+  "max_domain_weighted_left": {
+    "AfD": {
+      "External Relations": 0.32916995681545524,
+      "Freedom and Democracy": 0.24278687739590055,
+      "Political System": 0.15356219334405657,
+      "Economy": 0.2953503179658211,
+      "Welfare and Quality of Life": 0.2947225738628063,
+      "Fabric of Society": 0.1657001546032824
+    },
+    "CDU/CSU": {
+      "External Relations": 0.3291500477437803,
+      "Freedom and Democracy": 0.2664569835548044,
+      "Political System": 0.1267077542514368,
+      "Economy": 0.12252454286396093,
+      "Welfare and Quality of Life": 0.34818671159983033,
+      "Fabric of Society": 0.10213843559805125
+    },
+    "FDP": {
+      "External Relations": 0.36797283681021475,
+      "Freedom and Democracy": 0.20358262016598286,
+      "Political System": 0.2048046779383731,
+      "Economy": 0.24665692816408535,
+      "Welfare and Quality of Life": 0.40912987045903376,
+      "Fabric of Society": 0.12939608403259753
+    },
+    "SPD": {
+      "External Relations": 0.43121816404617697,
+      "Freedom and Democracy": 0.6007783195884117,
+      "Political System": 0.06632767857924415,
+      "Economy": 0.15903031100238352,
+      "Welfare and Quality of Life": 0.28572124732254367,
+      "Fabric of Society": 0.1325601099267591
+    },
+    "Grüne": {
+      "External Relations": 0.5846834025604657,
+      "Freedom and Democracy": 0.17447790469408195,
+      "Political System": 0.04512174704432464,
+      "Economy": 0.19877063415661667,
+      "Welfare and Quality of Life": 0.19351396144819277,
+      "Fabric of Society": 0.12444602051057121
+    },
+    "Die Linke": {
+      "External Relations": 0.6260872099497058,
+      "Freedom and Democracy": 0.23379247759860222,
+      "Political System": 0.11752351184170373,
+      "Economy": 0.4773055148630746,
+      "Welfare and Quality of Life": 0.3723836979169075,
+      "Fabric of Society": 0.18696096292998238
+    }
+  },
   "right_weighted_mean": {
     "AfD": 0.26837791182753795,
     "CDU/CSU": 0.2768796474575727,
@@ -317,6 +367,56 @@
       "Economy": 0.09319073232198324,
       "Welfare and Quality of Life": 0.08857458882107559,
       "Fabric of Society": 0.4464616055961487
+    }
+  },
+  "max_domain_weighted_right": {
+    "AfD": {
+      "External Relations": 0.19264089224798897,
+      "Freedom and Democracy": 0.39805511905902846,
+      "Political System": 0.3006917816919682,
+      "Economy": 0.2354373497179364,
+      "Welfare and Quality of Life": 0.16808267524335702,
+      "Fabric of Society": 0.4587819689848657
+    },
+    "CDU/CSU": {
+      "External Relations": 0.1885761760100453,
+      "Freedom and Democracy": 0.4488116955754975,
+      "Political System": 0.5354105720323414,
+      "Economy": 0.10368855335910723,
+      "Welfare and Quality of Life": 0.1023646381800775,
+      "Fabric of Society": 0.49017374527693547
+    },
+    "FDP": {
+      "External Relations": 0.15629437259054485,
+      "Freedom and Democracy": 0.5236128981254071,
+      "Political System": 0.21058245009653326,
+      "Economy": 0.20600790278068976,
+      "Welfare and Quality of Life": 0.13448171420973454,
+      "Fabric of Society": 0.4307039375782517
+    },
+    "SPD": {
+      "External Relations": 0.09030656769962092,
+      "Freedom and Democracy": 0.07489141185521395,
+      "Political System": 0.12989198201391614,
+      "Economy": 0.10239602588093781,
+      "Welfare and Quality of Life": 0.06397755387343282,
+      "Fabric of Society": 0.485358207118857
+    },
+    "Grüne": {
+      "External Relations": 0.09544032195293199,
+      "Freedom and Democracy": 0.4796527442805073,
+      "Political System": 0.6652782298296668,
+      "Economy": 0.10363274741247963,
+      "Welfare and Quality of Life": 0.07653008048346657,
+      "Fabric of Society": 0.43799105449910736
+    },
+    "Die Linke": {
+      "External Relations": 0.07954442416456853,
+      "Freedom and Democracy": 0.24624350142429582,
+      "Political System": 0.038097716889268406,
+      "Economy": 0.05482091876864545,
+      "Welfare and Quality of Life": 0.05358224883025231,
+      "Fabric of Society": 0.5129396850973506
     }
   },
   "rile_mean": {
@@ -582,6 +682,56 @@
       "left": 91
     }
   },
+  "max_domain_weights": {
+    "AfD": {
+      "Political System": 2764,
+      "Freedom and Democracy": 11318,
+      "External Relations": 4246,
+      "Economy": 28780,
+      "Welfare and Quality of Life": 76056,
+      "Fabric of Society": 6872
+    },
+    "CDU/CSU": {
+      "Political System": 12501,
+      "Fabric of Society": 37132,
+      "Economy": 29123,
+      "Welfare and Quality of Life": 38288,
+      "External Relations": 28402,
+      "Freedom and Democracy": 2149
+    },
+    "FDP": {
+      "Economy": 76402,
+      "Welfare and Quality of Life": 83590,
+      "Political System": 24141,
+      "External Relations": 34824,
+      "Freedom and Democracy": 43894,
+      "Fabric of Society": 5743
+    },
+    "SPD": {
+      "Welfare and Quality of Life": 123507,
+      "Fabric of Society": 29071,
+      "Economy": 35095,
+      "Freedom and Democracy": 12582,
+      "Political System": 3875,
+      "External Relations": 86239
+    },
+    "Grüne": {
+      "Political System": 25947,
+      "Welfare and Quality of Life": 217188,
+      "Economy": 80435,
+      "External Relations": 37655,
+      "Freedom and Democracy": 65254,
+      "Fabric of Society": 36882
+    },
+    "Die Linke": {
+      "Welfare and Quality of Life": 230673,
+      "Economy": 40726,
+      "Freedom and Democracy": 90072,
+      "Political System": 1929,
+      "Fabric of Society": 28692,
+      "External Relations": 51704
+    }
+  },
   "max_domain_rile": {
     "AfD": {
       "External Relations": -0.14850264731646604,
@@ -630,6 +780,56 @@
       "Economy": -0.3803926218479764,
       "Welfare and Quality of Life": -0.28611058665089073,
       "Fabric of Society": 0.22584109579760323
+    }
+  },
+  "max_domain_weighted_rile": {
+    "AfD": {
+      "External Relations": -0.13652906456746627,
+      "Freedom and Democracy": 0.15526824166312791,
+      "Political System": 0.14712958834791162,
+      "Economy": -0.059912968247884724,
+      "Welfare and Quality of Life": -0.1266398986194493,
+      "Fabric of Society": 0.29308181438158326
+    },
+    "CDU/CSU": {
+      "External Relations": -0.140573871733735,
+      "Freedom and Democracy": 0.1823547120206931,
+      "Political System": 0.40870281778090467,
+      "Economy": -0.018835989504853698,
+      "Welfare and Quality of Life": -0.24582207341975282,
+      "Fabric of Society": 0.3880353096788842
+    },
+    "FDP": {
+      "External Relations": -0.2116784642196699,
+      "Freedom and Democracy": 0.3200302779594243,
+      "Political System": 0.005777772158160166,
+      "Economy": -0.0406490253833956,
+      "Welfare and Quality of Life": -0.2746481562492992,
+      "Fabric of Society": 0.30130785354565415
+    },
+    "SPD": {
+      "External Relations": -0.34091159634655605,
+      "Freedom and Democracy": -0.5258869077331977,
+      "Political System": 0.06356430343467198,
+      "Economy": -0.05663428512144571,
+      "Welfare and Quality of Life": -0.22174369344911085,
+      "Fabric of Society": 0.3527980971920979
+    },
+    "Grüne": {
+      "External Relations": -0.4892430806075337,
+      "Freedom and Democracy": 0.30517483958642533,
+      "Political System": 0.6201564827853422,
+      "Economy": -0.09513788674413703,
+      "Welfare and Quality of Life": -0.1169838809647262,
+      "Fabric of Society": 0.31354503398853617
+    },
+    "Die Linke": {
+      "External Relations": -0.5465427857851373,
+      "Freedom and Democracy": 0.012451023825693602,
+      "Political System": -0.07942579495243532,
+      "Economy": -0.4224845960944291,
+      "Welfare and Quality of Life": -0.3188014490866552,
+      "Fabric of Society": 0.3259787221673682
     }
   },
   "max_domain_max_rile": {

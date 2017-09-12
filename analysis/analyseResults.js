@@ -166,17 +166,23 @@ function transform(data) {
 
     leftright.forEach(leri => {
 
-      party['weights_' + leri] = party['weights_' + leri] || [];
-      party['weights_' + leri].push(paragraph.content.length);
-
       // Save all left/right prediction values per party
       party[leri] = party[leri] || [];
       party[leri].push(paragraph[leri]);
+
+      // Save all left/right weights per party
+      party['weights_' + leri] = party['weights_' + leri] || [];
+      party['weights_' + leri].push(paragraph.content.length);
 
       // Save all left/right prediction values per party AND max_domain
       party['max_domain_' + leri] = party['max_domain_' + leri] || {};
       party['max_domain_' + leri][paragraph.max_domain] = party['max_domain_' + leri][paragraph.max_domain] || [];
       party['max_domain_' + leri][paragraph.max_domain].push(paragraph[leri]);
+
+      // Save all left/right weights per party AND max_domain
+      party['max_domain_weights_' + leri] = party['max_domain_weights_' + leri] || {};
+      party['max_domain_weights_' + leri][paragraph.max_domain] = party['max_domain_weights_' + leri][paragraph.max_domain] || [];
+      party['max_domain_weights_' + leri][paragraph.max_domain].push(paragraph.content.length);
 
       // Save all max_leftright occurences per party AND max_domain
       if (paragraph.max_leftright == leri) {
@@ -243,6 +249,12 @@ function aggregate(data) {
 
         result[party]['max_domain_' + leri] = result[party]['max_domain_' + leri] || {};
         result[party]['max_domain_' + leri][domain] = mean(data[party]['max_domain_' + leri][domain]);
+
+        result[party]['max_domain_weighted_' + leri] = result[party]['max_domain_weighted_' + leri] || {};
+        result[party]['max_domain_weighted_' + leri][domain] = weightedMedian(
+          data[party]['max_domain_' + leri][domain],
+          data[party]['max_domain_weights_' + leri][domain]
+        );
       });
     });
 
@@ -259,6 +271,22 @@ function aggregate(data) {
 
       result[party][maximum] = count(data[party][maximum]);
     });
+
+    result[party].max_domain_weights = coalesce(data[party].max_domain, data[party].weights);
+
+  });
+
+  return result;
+}
+
+function coalesce(values, weights) {
+
+  let result = {};
+
+  values.forEach((value, index) => {
+
+    result[value] = result[value] || 0;
+    result[value] += weights[index];
   });
 
   return result;
@@ -283,6 +311,16 @@ function calculate(data) {
 
       result[party].max_domain_rile[domain] =
         (data[party].max_domain_right[domain] - data[party].max_domain_left[domain]);
+
+      // Weighted Rile index from max_domain and right/left value per party
+      // @todo Objects and null values should be instantiated programmatically (lambdas)
+      result[party].max_domain_weighted_rile = result[party].max_domain_weighted_rile || {};
+
+      data[party].max_domain_weighted_right[domain] = data[party].max_domain_weighted_right[domain] || 0;
+      data[party].max_domain_weighted_left[domain] = data[party].max_domain_weighted_left[domain] || 0;
+
+      result[party].max_domain_weighted_rile[domain] =
+        (data[party].max_domain_weighted_right[domain] - data[party].max_domain_weighted_left[domain]);
 
       // Rile index from from max_domain and max_right occurences
       // @todo Remove, because the small sample and missing values lead to weird results
@@ -380,6 +418,15 @@ function count(arr) {
   }, {});
 }
 
+// Sum up all values in an array
+function sum(arr) {
+
+  return arr.reduce(function (previous, current) {
+
+    return previous + current;
+  });
+}
+
 // Calculate arithmetic mean from an array of values
 function mean(arr) {
 
@@ -440,7 +487,7 @@ function weightedMean(values, weights) {
 
 function weightedMedian(values, weights) {
 
-  var midpoint = 0.5 * arraySum(weights);
+  var midpoint = 0.5 * sum(weights);
 
   var cumulativeWeight = 0;
   var belowMidpointIndex = 0;
@@ -476,7 +523,7 @@ function weightedMedian(values, weights) {
   if (cumulativeWeight - midpoint < Number.EPSILON) {
 
     var bounds = sortedValues.slice(belowMidpointIndex - 2, belowMidpointIndex);
-    return arraySum(bounds) / bounds.length;
+    return sum(bounds) / bounds.length;
   }
 
   return sortedValues[belowMidpointIndex - 1];
@@ -501,13 +548,6 @@ function weightedStdDev(values, weights) {
   return Math.sqrt(result[0] / result[1]);
 }
 
-function arraySum(arr) {
-
-  return arr.reduce(function (previous, current) {
-
-    return previous + current;
-  });
-}
 
 function saveFile(relativePath, string) {
 

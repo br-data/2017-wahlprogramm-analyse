@@ -137,15 +137,18 @@
     </div>
     <svg id="max-domain" width="720" height="400"></svg>
 
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="max-domain-weights" width="720" height="400"></svg>
+
     <p>Die Parteiprogramme sind in der Länge sehr unterschiedlich. Dementsprechend variiert auch die Anzahl der Aussagen pro Domain. Spannend hier könnte z.B. sein: Die SPD spricht sehr wenige wirtschaftliche Themen (Domain "Economy") an, für die FDP ist die Domain "Freedom and Democracy" sehr wichtig. Die AfD trifft in der Domain "Fabric of Society" die meisten Aussagen.</p>
 
     <p class="small-margin"><strong>Anzahl der Aussagen pro Partei und Politikfeld:</strong></p>
-
     <div id="max-domain-table"></div>
 
-    <p>(Die Tabelle kann mit Klick auf die Überschriften in den Spalten auf- und absteigend sortiert werden)</p>
+    <p class="small-margin"><strong>Anzahl der Aussagen pro Partei und Manifesto-Code:</strong></p>
+    <div id="max-manifesto-table"></div>
 
-    <h3 style="color:red;">Achtung: Die nachfolgenden Rechts-Links-Einteilungen können sich aufgrund zum Teil fehlerhafter Werte noch ändern.</h3>
+    <p>(Die Tabelle kann mit Klick auf die Überschriften in den Spalten auf- und absteigend sortiert werden)</p>
 
     <h3>Die Standpunkte der Parteien, aufgeschlüsselt nach Politikfeldern/Domains</h3>
 
@@ -162,21 +165,33 @@
 
     <p class="small-margin"><strong>AfD pro Politikfeld:</strong></p>
     <svg id="afd" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="afd-weighted" width="720" height="75"></svg>
 
     <p class="small-margin"><strong>CDU/CSU pro Politikfeld:</strong></p>
     <svg id="union" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="union-weighted" width="720" height="75"></svg>
 
     <p class="small-margin"><strong>FDP pro Politikfeld:</strong></p>
     <svg id="fdp" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="fdp-weighted" width="720" height="75"></svg>
 
     <p class="small-margin"><strong>SPD pro Politikfeld:</strong></p>
     <svg id="spd" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="spd-weighted" width="720" height="75"></svg>
 
     <p class="small-margin"><strong>Grüne pro Politikfeld:</strong></p>
     <svg id="gruene" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="gruene-weighted" width="720" height="75"></svg>
 
     <p class="small-margin"><strong>Die Linke pro Politikfeld:</strong></p>
     <svg id="linke" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="linke-weighted" width="720" height="75"></svg>
 
     <h3>Die Politikfelder/Domains, aufgeschlüsselt nach Parteien</h3>
 
@@ -193,15 +208,23 @@
 
     <p class="small-margin"><strong>Welfare and Quality of Life pro Partei:</strong></p>
     <svg id="welfare" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="welfare-weighted" width="720" height="75"></svg>
 
     <p class="small-margin"><strong>Economy pro Partei:</strong></p>
     <svg id="economy" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="economy-weighted" width="720" height="75"></svg>
 
     <p class="small-margin"><strong>External Relations pro Partei:</strong></p>
     <svg id="external" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="external-weighted" width="720" height="75"></svg>
 
     <p class="small-margin"><strong>Fabric of Society pro Partei:</strong></p>
     <svg id="fabric" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="fabric-weighted" width="720" height="75"></svg>
 
     <h3>Einteilung nach Rechts-Links, wie sinnvoll ist das?</h3>
 
@@ -210,7 +233,13 @@
     <p class="small-margin"><strong>Rechts/Links nach Manifesto-Definition pro Partei:</strong></p>
     <svg id="rile-calc" width="720" height="75"></svg>
 
-    <div class="hide" style="display:none;">
+    <p class="small-margin"><strong>Rechts/Links (Median) pro Partei:</strong></p>
+    <svg id="rile-median" width="720" height="75"></svg>
+
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="rile-weighted-median" width="720" height="75"></svg>
+
+    <div class="hide" style="display: none;">
       <p class="small-margin"><strong>Rechts/Links des Parteiprogramm pro Partei:</strong></p>
       <svg id="manifesto" width="720" height="75"></svg>
     </div>
@@ -268,15 +297,30 @@
       };
 
       groupedBarChart('max-domain', data.max_domain, categoryColors);
+      groupedBarChart('max-domain-weights', data.max_domain_weights, categoryColors);
 
       table('max-domain-table', data.max_domain);
 
+      table('max-manifesto-table', data.max_manifesto);
+
       rightLeftChart('afd', data.max_domain_rile['AfD'], categoryColors);
+      rightLeftChart('afd-weighted', data.max_domain_weighted_rile['AfD'], categoryColors);
+
       rightLeftChart('union', data.max_domain_rile['CDU/CSU'], categoryColors);
+      rightLeftChart('union-weighted', data.max_domain_weighted_rile['CDU/CSU'], categoryColors);
+
       rightLeftChart('fdp', data.max_domain_rile['FDP'], categoryColors);
+      rightLeftChart('fdp-weighted', data.max_domain_weighted_rile['FDP'], categoryColors);
+
       rightLeftChart('spd', data.max_domain_rile['SPD'], categoryColors);
+      rightLeftChart('spd-weighted', data.max_domain_weighted_rile['SPD'], categoryColors);
+
       rightLeftChart('gruene', data.max_domain_rile['Grüne'], categoryColors);
+      rightLeftChart('gruene-weighted', data.max_domain_weighted_rile['Grüne'], categoryColors);
+
       rightLeftChart('linke', data.max_domain_rile['Die Linke'], categoryColors);
+      rightLeftChart('linke-weighted', data.max_domain_weighted_rile['Die Linke'], categoryColors);
+
 
       var welfare = {};
 
@@ -287,6 +331,16 @@
 
       rightLeftChart('welfare', welfare, partyColors);
 
+      var welfareWeighted = {};
+
+      Object.keys(data.max_domain_weighted_rile).forEach(function (key) {
+
+        welfareWeighted[key] = data.max_domain_weighted_rile[key]['Welfare and Quality of Life'];
+      });
+
+      rightLeftChart('welfare-weighted', welfareWeighted, partyColors);
+
+
       var economy = {};
 
       Object.keys(data.max_domain_rile).forEach(function (key) {
@@ -295,6 +349,16 @@
       });
 
       rightLeftChart('economy', economy, partyColors);
+
+      var economyWeighted = {};
+
+      Object.keys(data.max_domain_weighted_rile).forEach(function (key) {
+
+        economyWeighted[key] = data.max_domain_weighted_rile[key]['Economy'];
+      });
+
+      rightLeftChart('economy-weighted', economyWeighted, partyColors);
+
 
       var external = {};
 
@@ -305,7 +369,15 @@
 
       rightLeftChart('external', external, partyColors);
 
-      rightLeftChart('economy', economy, partyColors);
+      var externalWeighted = {};
+
+      Object.keys(data.max_domain_weighted_rile).forEach(function (key) {
+
+        externalWeighted[key] = data.max_domain_weighted_rile[key]['External Relations'];
+      });
+
+      rightLeftChart('external-weighted', externalWeighted, partyColors);
+
 
       var fabric = {};
 
@@ -316,7 +388,19 @@
 
       rightLeftChart('fabric', fabric, partyColors);
 
+      var fabricWeighted = {};
+
+      Object.keys(data.max_domain_weighted_rile).forEach(function (key) {
+
+        fabricWeighted[key] = data.max_domain_weighted_rile[key]['Fabric of Society'];
+      });
+
+      rightLeftChart('fabric-weighted', fabricWeighted, partyColors);
+
+
       rightLeftChart('rile-calc', data.rile_calc, partyColors);
+      rightLeftChart('rile-median', data.rile_median, partyColors);
+      rightLeftChart('rile-weighted-median', data.rile_weighted_median, partyColors);
 
       rightLeftChart('manifesto', manifesto, partyColors);
     }
