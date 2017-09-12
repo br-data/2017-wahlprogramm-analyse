@@ -161,6 +161,9 @@ function transform(data) {
 
     let party = result[paragraph.party] = result[paragraph.party] || {};
 
+    party.lengths = party.lengths || [];
+    party.lengths.push(paragraph.content.length);
+
     leftright.forEach(leri => {
 
       // Save all left/right prediction values per party
@@ -213,6 +216,12 @@ function aggregate(data) {
   parties.forEach(party => {
 
     result[party] = result[party] || {};
+
+    result[party].lengths_mean = mean(data[party].lengths);
+    result[party].lengths_median = median(data[party].lengths);
+    result[party].lengths_stddev = stdDev(data[party].lengths);
+
+    result[party].lengths = data[party].lengths;
 
     leftright.forEach(leri => {
 
