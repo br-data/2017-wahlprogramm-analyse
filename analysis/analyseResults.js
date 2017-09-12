@@ -161,10 +161,13 @@ function transform(data) {
 
     let party = result[paragraph.party] = result[paragraph.party] || {};
 
-    party.lengths = party.lengths || [];
-    party.lengths.push(paragraph.content.length);
+    party.weights = party.weights || [];
+    party.weights.push(paragraph.content.length);
 
     leftright.forEach(leri => {
+
+      party['weights_' + leri] = party['weights_' + leri] || [];
+      party['weights_' + leri].push(paragraph.content.length);
 
       // Save all left/right prediction values per party
       party[leri] = party[leri] || [];
@@ -217,13 +220,15 @@ function aggregate(data) {
 
     result[party] = result[party] || {};
 
-    result[party].lengths_mean = mean(data[party].lengths);
-    result[party].lengths_median = median(data[party].lengths);
-    result[party].lengths_stddev = stdDev(data[party].lengths);
-
-    result[party].lengths = data[party].lengths;
+    result[party].weights_mean = mean(data[party].weights);
+    result[party].weights_median = median(data[party].weights);
+    result[party].weights_stddev = stdDev(data[party].weights);
 
     leftright.forEach(leri => {
+
+      result[party][leri + '_weighted_mean'] = weightedMean(data[party][leri], data[party]['weights_' + leri]);
+      result[party][leri + '_weighted_median'] = weightedMedian(data[party][leri], data[party]['weights_' + leri]);
+      result[party][leri + '_weighted_stddev'] = weightedStdDev(data[party][leri], data[party]['weights_' + leri]);
 
       // Average right and left from right/left per party
       result[party][leri + '_mean'] = mean(data[party][leri]);
@@ -245,6 +250,9 @@ function aggregate(data) {
     // @todo Should be done in calculate()
     result[party].rile_mean = result[party].right_mean - result[party].left_mean;
     result[party].rile_median = result[party].right_mean - result[party].left_mean;
+
+    result[party].rile_weighted_mean = result[party].right_weighted_mean - result[party].left_weighted_mean;
+    result[party].rile_weighted_median = result[party].right_weighted_mean - result[party].left_weighted_mean;
 
     // Count occurences (leftright, domain, manifesto) per party
     maxima.forEach(maximum => {
@@ -355,6 +363,23 @@ function round(float) {
   return Math.round(float * 100) / 100;
 }
 
+// Count occurences of uniqe values in an array
+function count(arr) {
+
+  return arr.reduce(function (acc, curr) {
+
+    if (typeof acc[curr] == 'undefined') {
+
+      acc[curr] = 1;
+    } else {
+
+      acc[curr] += 1;
+    }
+
+    return acc;
+  }, {});
+}
+
 // Calculate arithmetic mean from an array of values
 function mean(arr) {
 
@@ -396,21 +421,92 @@ function stdDev(arr) {
   return Math.sqrt(variance);
 }
 
-// Count occurences of uniqe values in an array
-function count(arr) {
 
-  return arr.reduce(function (acc, curr) {
+function weightedMean(values, weights) {
 
-    if (typeof acc[curr] == 'undefined') {
+  var result = values.map(function (value, i) {
 
-      acc[curr] = 1;
-    } else {
+    var weight = weights[i];
+    var sum = value * weight;
 
-      acc[curr] += 1;
-    }
+    return [sum, weight];
+  }).reduce(function (previous, current) {
 
-    return acc;
-  }, {});
+    return [previous[0] + current[0], previous[1] + current[1]];
+  }, [0, 0]);
+
+  return result[0] / result[1];
+}
+
+function weightedMedian(values, weights) {
+
+  var midpoint = 0.5 * arraySum(weights);
+
+  var cumulativeWeight = 0;
+  var belowMidpointIndex = 0;
+
+  var sortedValues = [];
+  var sortedWeights = [];
+
+  values.map(function (value, i) {
+
+    return [value, weights[i]];
+  }).sort(function (a, b) {
+
+    return a[0] - b[0];
+  }).map(function (pair) {
+
+    sortedValues.push(pair[0]);
+    sortedWeights.push(pair[1]);
+  });
+
+  if (sortedWeights.some(function (value) { return value > midpoint; })) {
+
+    return sortedValues[sortedWeights.indexOf(Math.max.apply(null, sortedWeights))];
+  }
+
+  while (cumulativeWeight <= midpoint) {
+
+    belowMidpointIndex++;
+    cumulativeWeight += sortedWeights[belowMidpointIndex - 1];
+  }
+
+  cumulativeWeight -= sortedWeights[belowMidpointIndex - 1];
+
+  if (cumulativeWeight - midpoint < Number.EPSILON) {
+
+    var bounds = sortedValues.slice(belowMidpointIndex - 2, belowMidpointIndex);
+    return arraySum(bounds) / bounds.length;
+  }
+
+  return sortedValues[belowMidpointIndex - 1];
+}
+
+function weightedStdDev(values, weights) {
+
+  var avg = weightedMean(values, weights);
+
+  var result = values.map(function (value, i) {
+
+    var weight = weights[i];
+    var diff = value - avg;
+    var sqrDiff = weight * Math.pow(diff, 2);
+
+    return [sqrDiff, weight];
+  }).reduce(function (previous, current) {
+
+    return [previous[0] + current[0], previous[1] + current[1]];
+  }, [0, 0]);
+
+  return Math.sqrt(result[0] / result[1]);
+}
+
+function arraySum(arr) {
+
+  return arr.reduce(function (previous, current) {
+
+    return previous + current;
+  });
 }
 
 function saveFile(relativePath, string) {
