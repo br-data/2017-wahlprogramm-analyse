@@ -6,19 +6,7 @@ function boxPlot(id, data, left, right, colors) {
   // D3 elements, variables and functions
   var chart, plot, svg, group, max, min, xScale, xAxis, width, height, timeout;
 
-  // Fetched and wrangled data
-  var cachedData = {};
-
   (function init() {
-
-    // Use cached data on redraw
-    if (data) {
-
-      cachedData = data;
-    } else {
-
-      data = cachedData;
-    }
 
     data = Object.keys(data).map(function (key) {
 

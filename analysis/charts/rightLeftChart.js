@@ -4,17 +4,7 @@ function rightLeftChart(id, data, colors) {
 
   var chart, plot, svg, group, max, min, xScale, xAxis, width, height, timeout;
 
-  var cachedData = {};
-
   (function init() {
-
-    if (data) {
-
-      cachedData = data;
-    } else {
-
-      data = cachedData;
-    }
 
     data = Object.keys(data).map(function (key) {
 
