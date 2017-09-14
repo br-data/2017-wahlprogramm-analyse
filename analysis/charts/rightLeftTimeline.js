@@ -105,7 +105,7 @@ function rightLeftTimeline(id, data, colors) {
         .attr('cx', function (d) { return x(d.rile_focused); })
         .attr('cy', function (d) { return y(d.date); })
         .attr('r', 7.5)
-        .attr('stroke', function (d) { console.log(d);return colors[d.name]; })
+        .attr('stroke', function (d) { return colors[d.name]; })
         .attr('stroke-width', '2')
         .attr('fill', '#fff');
   }
