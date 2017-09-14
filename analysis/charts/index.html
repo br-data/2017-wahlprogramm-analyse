@@ -32,7 +32,6 @@
     }
 
     svg {
-      background: #f0f0f4;
       margin-bottom: 1em;
     }
 
@@ -123,9 +122,11 @@
 
     <h1 style="font-size: 2em;">Analyse der Wahlprogramme zur Bundestagswahl 2017</h1>
 
-    <svg id="manifesto-historic" width="720" height="350"></svg>
+    <svg id="max-domain-stacked" width="720" height="400"></svg>
 
     <p>Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien über 5% (nach Umfragen) zur Bundestagswahl 2017. Die Wahlprogramme wurde automatisiert pro Absatz nach politischer Einstellung (links/rechts) und Politikfeld eingeordnet. Der Einordnung liegt ein Machine-Learning-Algorithmus zugrunde, welcher mit Daten des Manifesto-Projekt trainiert wurde. </p>
+
+    <svg id="manifesto-historic" width="720" height="350"></svg>
 
     <p>Wir wollen anhand dieser Analyse zeigen, wo die Parteien ihre inhaltlichen Schwerpunkte haben und wie diese politisch einzuordnen sind. Die Frage, ob die Links-Rechts-Einteilung überhaupt noch sinnvoll ist, möchten wir, z.B. anhand der AfD, aufgreifen.</p>
 
@@ -269,6 +270,8 @@
   <script type="text/javascript" src="utils.js"></script>
   <script type="text/javascript" src="table.js"></script>
   <script type="text/javascript" src="groupedBarChart.js"></script>
+  <script type="text/javascript" src="groupedBarChartInverse.js"></script>
+  <script type="text/javascript" src="stackedBarChart.js"></script>
   <script type="text/javascript" src="rightLeftChart.js"></script>
   <script type="text/javascript" src="rightLeftTimeline.js"></script>
   <script type="text/javascript" src="boxPlot.js"></script>
@@ -310,12 +313,14 @@
         'Die Linke': '#be3075'
       };
 
+      stackedBarChart('max-domain-stacked', data.max_domain_weights, categoryColors);
+
       d3.csv('../results/rile-scores-historic.csv', function (data) {
 
         rightLeftTimeline('manifesto-historic', data, partyColors);
       });
 
-      groupedBarChart('max-domain', data.max_domain, categoryColors);
+      groupedBarChartInverse('max-domain', data.max_domain_weights, partyColors);
       groupedBarChart('max-domain-weights', data.max_domain_weights, categoryColors);
 
       table('max-domain-table', data.max_domain);
