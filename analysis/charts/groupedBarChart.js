@@ -33,11 +33,11 @@ function groupedBarChart(id, data, colors) {
 
   function draw(id, data) {
 
-    var svg = d3.select('#' + id),
-        margin = { top: 20, right: 20, bottom: 30, left: 35 },
-        width = +svg.attr('width') - margin.left - margin.right,
-        height = +svg.attr('height') - margin.top - margin.bottom,
-        g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+    var svg = d3.select('#' + id);
+    var margin = { top: 20, right: 20, bottom: 30, left: 35 };
+    var width = +svg.attr('width') - margin.left - margin.right;
+    var height = +svg.attr('height') - margin.top - margin.bottom;
+    var g = svg.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
     var x0 = d3.scaleBand()
         .rangeRound([0, width])
@@ -48,9 +48,6 @@ function groupedBarChart(id, data, colors) {
 
     var y = d3.scaleLinear()
         .rangeRound([height, 0]);
-
-    var z = d3.scaleOrdinal()
-        .range(['#8dd3c7', '#bebada', '#fb8072', '#80b1d3', '#fdb462', '#b3de69']);
 
     var keys = Object.keys(data[0]).slice(0,6);
 

@@ -81,6 +81,11 @@
       border-radius: 100%;
     }
 
+    .small-chart {
+      display: inline-block;
+      padding: 2em;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
@@ -122,7 +127,7 @@
 
     <h1 style="font-size: 2em;">Analyse der Wahlprogramme zur Bundestagswahl 2017</h1>
 
-    <svg id="max-domain-stacked" width="720" height="400"></svg>
+    <div id="small-bar-chart"></div>
 
     <p>Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien über 5% (nach Umfragen) zur Bundestagswahl 2017. Die Wahlprogramme wurde automatisiert pro Absatz nach politischer Einstellung (links/rechts) und Politikfeld eingeordnet. Der Einordnung liegt ein Machine-Learning-Algorithmus zugrunde, welcher mit Daten des Manifesto-Projekt trainiert wurde. </p>
 
@@ -272,6 +277,7 @@
   <script type="text/javascript" src="groupedBarChart.js"></script>
   <script type="text/javascript" src="groupedBarChartInverse.js"></script>
   <script type="text/javascript" src="stackedBarChart.js"></script>
+  <script type="text/javascript" src="smallBarChart.js"></script>
   <script type="text/javascript" src="rightLeftChart.js"></script>
   <script type="text/javascript" src="rightLeftTimeline.js"></script>
   <script type="text/javascript" src="boxPlot.js"></script>
@@ -313,7 +319,7 @@
         'Die Linke': '#be3075'
       };
 
-      stackedBarChart('max-domain-stacked', data.max_domain_weights, categoryColors);
+      smallBarChart('small-bar-chart', data.max_domain_weights, partyColors);
 
       d3.csv('../results/rile-scores-historic.csv', function (data) {
 
