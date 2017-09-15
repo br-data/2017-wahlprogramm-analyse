@@ -38,8 +38,6 @@ function smallBarChart(id, data, colors) {
       };
     });
 
-    console.log(result);
-
     return result;
   }
 

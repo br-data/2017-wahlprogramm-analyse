@@ -48,28 +48,33 @@ function boxPlot(id, data, left, right, colors) {
 
     group = plot.append('g');
 
-    // Draw the bars
-    group.selectAll('rects')
+    // Draw the deviation lines
+    group.selectAll('line')
         .data(data)
         .enter()
-      .append('rect')
-        .attr('x', function (d) { return xScale(d.value - d.left); })
-        .attr('y', function (d, i) { return i * 20; })
-        .attr('rx', 2)
-        .attr('ry', 2)
-        .attr('width', function (d) {
-          return xScale(d.value + d.right) - xScale(d.value - d.left); })
-        .attr('height', 15)
-        .attr('fill', function (d) { return colors[d.party]; });
+      .append('line')
+        .attr('x1', function (d) {
+          console.log(d);
+          return xScale(d.value - d.left);
+        })
+        .attr('x2', function (d) {
+          return xScale(d.value + d.right);
+        })
+        .attr('y1', function (d, i) { return i * 20 + 7.5; })
+        .attr('y2', function (d, i) { return i * 20 + 7.5; })
+        .attr('stroke', function (d) { return colors[d.party]; })
+        .attr('stroke-width', 4.5);
 
     // Draw the median line
-    group.selectAll('circles')
+    group.selectAll('circle')
         .data(data)
         .enter()
       .append('circle')
         .attr('cx', function (d) { return xScale(d.value); })
         .attr('cy', function (d, i) { return (i * 20) + 7.5; })
         .attr('r', 7.5)
-        .attr('fill', '#fff');
+        .attr('fill', '#fff')
+        .attr('stroke', function (d) { return colors[d.party]; })
+        .attr('stroke-width', 2);
   }
 }
