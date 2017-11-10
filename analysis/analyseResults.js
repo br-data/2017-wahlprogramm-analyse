@@ -255,6 +255,12 @@ function aggregate(data) {
           data[party]['max_domain_' + leri][domain],
           data[party]['max_domain_weights_' + leri][domain]
         );
+
+        result[party]['max_domain_weighted_stddev_' + leri] = result[party]['max_domain_weighted_stddev_' + leri] || {};
+        result[party]['max_domain_weighted_stddev_' + leri][domain] = weightedStdDev(
+          data[party]['max_domain_' + leri][domain],
+          data[party]['max_domain_weights_' + leri][domain]
+        );
       });
     });
 

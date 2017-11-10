@@ -221,6 +221,56 @@
       "Fabric of Society": 0.18696096292998238
     }
   },
+  "max_domain_weighted_stddev_left": {
+    "AfD": {
+      "External Relations": 0.18046329846264195,
+      "Freedom and Democracy": 0.15884280897043043,
+      "Political System": 0.11495860803081112,
+      "Economy": 0.16954285291244894,
+      "Welfare and Quality of Life": 0.1652491200691372,
+      "Fabric of Society": 0.043382459470630706
+    },
+    "CDU/CSU": {
+      "External Relations": 0.21051636553596245,
+      "Freedom and Democracy": 0,
+      "Political System": 0.12099737502793215,
+      "Economy": 0.14068451473993687,
+      "Welfare and Quality of Life": 0.2585675459777399,
+      "Fabric of Society": 0.09114276630621394
+    },
+    "FDP": {
+      "External Relations": 0.18698125990894504,
+      "Freedom and Democracy": 0.12530321616055448,
+      "Political System": 0.09920244096764072,
+      "Economy": 0.15049728950797464,
+      "Welfare and Quality of Life": 0.1913225002867953,
+      "Fabric of Society": 0.09612418351624845
+    },
+    "SPD": {
+      "External Relations": 0.22046409812401604,
+      "Freedom and Democracy": 0.29540076538103094,
+      "Political System": 0.05301036230792827,
+      "Economy": 0.2657142511292093,
+      "Welfare and Quality of Life": 0.22318731303790032,
+      "Fabric of Society": 0.1390055880803452
+    },
+    "Grüne": {
+      "External Relations": 0.22467939112120042,
+      "Freedom and Democracy": 0.22373601547644822,
+      "Political System": 0.05211423496186245,
+      "Economy": 0.2662300353788436,
+      "Welfare and Quality of Life": 0.23265534713192204,
+      "Fabric of Society": 0.13380683747944186
+    },
+    "Die Linke": {
+      "External Relations": 0.24144315280195916,
+      "Freedom and Democracy": 0.28497839018255433,
+      "Political System": 0,
+      "Economy": 0.2605671992191758,
+      "Welfare and Quality of Life": 0.23774284349165323,
+      "Fabric of Society": 0.07881710286312904
+    }
+  },
   "right_weighted_mean": {
     "AfD": 0.26837791182753795,
     "CDU/CSU": 0.2768796474575727,
@@ -417,6 +467,56 @@
       "Economy": 0.05482091876864545,
       "Welfare and Quality of Life": 0.05358224883025231,
       "Fabric of Society": 0.5129396850973506
+    }
+  },
+  "max_domain_weighted_stddev_right": {
+    "AfD": {
+      "External Relations": 0.09805005814044024,
+      "Freedom and Democracy": 0.16256515405398908,
+      "Political System": 0.08720015941920317,
+      "Economy": 0.1385865474564484,
+      "Welfare and Quality of Life": 0.09329449194524249,
+      "Fabric of Society": 0.14521837658592268
+    },
+    "CDU/CSU": {
+      "External Relations": 0.21491545850908209,
+      "Freedom and Democracy": 0,
+      "Political System": 0.2777719265218994,
+      "Economy": 0.17251295707060582,
+      "Welfare and Quality of Life": 0.09553839471432439,
+      "Fabric of Society": 0.1708160141361925
+    },
+    "FDP": {
+      "External Relations": 0.14229498838030488,
+      "Freedom and Democracy": 0.15683791000770825,
+      "Political System": 0.2795761528489231,
+      "Economy": 0.14346695560252357,
+      "Welfare and Quality of Life": 0.0770790475655304,
+      "Fabric of Society": 0.16979816486038804
+    },
+    "SPD": {
+      "External Relations": 0.14195560491314207,
+      "Freedom and Democracy": 0.2604770167961236,
+      "Political System": 0.02134733238229972,
+      "Economy": 0.14697516546094433,
+      "Welfare and Quality of Life": 0.11891192522514966,
+      "Fabric of Society": 0.12710829141183014
+    },
+    "Grüne": {
+      "External Relations": 0.09691770414979484,
+      "Freedom and Democracy": 0.239158087391469,
+      "Political System": 0.19997316174874694,
+      "Economy": 0.07952762212642811,
+      "Welfare and Quality of Life": 0.06241039055503092,
+      "Fabric of Society": 0.15447577231343493
+    },
+    "Die Linke": {
+      "External Relations": 0.07156398740583686,
+      "Freedom and Democracy": 0.2506892571664396,
+      "Political System": 0,
+      "Economy": 0.0466163613625463,
+      "Welfare and Quality of Life": 0.06887705543108032,
+      "Fabric of Society": 0.16381482629375665
     }
   },
   "rile_mean": {
