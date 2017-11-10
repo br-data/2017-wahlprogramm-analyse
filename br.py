@@ -153,7 +153,6 @@ def plot_left_right(df,
     grouping_column='party',
     folder=RESULT_FOLDER,
     plot_suffix=""):
-
     # median-centered per domain right position
     df[plot_column] = df[plot_column] - df[plot_column].median()
     ax = sns.violinplot(x=plot_column,y=grouping_column,
@@ -163,6 +162,7 @@ def plot_left_right(df,
     ax.set_xticks(np.arange(0,1,.1))
     ax.set_xlabel("links-rechts Index")
     ax.set_ylabel("Partei")
+    ax.set_facecolor("white")
     ax.set_title(plot_suffix)
     output_file(os.path.join(folder,"violinPlot-%s.html"%plot_suffix))
     show(mpl.to_bokeh())
