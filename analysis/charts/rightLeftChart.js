@@ -53,9 +53,10 @@ function rightLeftChart(id, data, colors) {
         .attr('stroke', function (d) {
           return colors[d.party];
         })
-        .attr('fill-opacity', 0.5)
+        .attr('fill-opacity', 0)
         .attr('fill', function (d) {
-          return colors[d.party];
+          return '#fff'
+          //return colors[d.party];
         });
   }
 }

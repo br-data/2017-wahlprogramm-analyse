@@ -18,10 +18,13 @@ function boxPlot(id, data, left, right, colors) {
       };
     });
 
+
     draw(id, data);
   })();
 
   function draw(id, data) {
+
+    console.log(data);
 
     svg = d3.select('#' + id);
 
@@ -54,7 +57,6 @@ function boxPlot(id, data, left, right, colors) {
         .enter()
       .append('line')
         .attr('x1', function (d) {
-          console.log(d);
           return xScale(d.value - d.left);
         })
         .attr('x2', function (d) {

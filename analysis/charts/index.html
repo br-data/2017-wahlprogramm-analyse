@@ -292,6 +292,32 @@
 
       console.log(data);
 
+      var domains = [
+        'External Relations',
+        'Freedom and Democracy',
+        'Political System',
+        'Economy',
+        'Welfare and Quality of Life',
+        'Fabric of Society'
+      ];
+
+      var obj = {};
+
+      domains.forEach(function (domain) {
+
+        obj[domain] = [];
+
+        Object.keys(data.max_domain_weighted_rile).forEach(function (party) {
+
+          obj[domain].push({
+            party: party,
+            value: data.max_domain_weighted_rile[party][domain],
+            left: data.max_domain_weighted_stddev_left[party][domain],
+            right: data.max_domain_weighted_stddev_right[party][domain]
+          });
+        });
+      });
+
       var manifesto = {
         'AfD': -0.15,
         'CDU/CSU': 0.1,
