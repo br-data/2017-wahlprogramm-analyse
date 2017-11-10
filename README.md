@@ -1,6 +1,6 @@
 # Analyse der Wahlprogramme zur Bundestagswahl 2017
 
-Untersuchung der Wahlprogramme zur Bundestagswahl 2017 auf inhaltlichen Schwerpunkte und politische Ausrichtung. Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien über 5% (nach Umfragen). Die Wahlprogramme wurde automatisiert pro Gliederungspunkt nach politischer Einstellung (links/rechts) und Politikfeld eingeordnet.
+Untersuchung der Wahlprogramme zur Bundestagswahl 2017 auf inhaltlichen Schwerpunkte und politische Ausrichtung. Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien über 5% (nach Umfragen). Die Wahlprogramme wurden automatisiert pro Gliederungspunkt nach politischer Einstellung (links/rechts) und Politikfeld eingeordnet.
 
 Der Einordnung liegt ein Machine-Learning-Algorithmus zugrunde, welcher mit Daten des [Manifesto-Projekt](https://manifestoproject.wzb.eu/) trainiert wurde. Auch das Schema für die Klassifizierung der Wahlprogramme (Domains und Labels), sowie das Schema für die Berechnung der Rechts-Links-Einteilung, wurden von diesem Forschungsprojekt übernommen. Eine Analyse von [BR Data](http://br.de/data) und Felix Bießmann.
 
