@@ -1,6 +1,6 @@
 # Analyse der Wahlprogramme zur Bundestagswahl 2017
 
-Untersuchung der Wahlprogramme zur Bundestagswahl 2017 auf inhaltlichen Schwerpunkte und politische Ausrichtung. Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien über 5% (nach Umfragen). Die Wahlprogramme wurden automatisiert pro Gliederungspunkt nach politischer Einstellung (links/rechts) und Politikfeld eingeordnet.
+Untersuchung der Wahlprogramme zur Bundestagswahl 2017 auf inhaltliche Schwerpunkte und politische Ausrichtung. Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien mit einem Stimmenanteil von über 5% (nach Umfragen). Die Wahlprogramme wurden automatisiert pro Gliederungspunkt nach politischer Einstellung (links/rechts) und Politikfeld eingeordnet.
 
 Der Einordnung liegt ein Machine-Learning-Algorithmus zugrunde, welcher mit Daten des [Manifesto-Projekt](https://manifestoproject.wzb.eu/) trainiert wurde. Auch das Schema für die Klassifizierung der Wahlprogramme (Domains und Labels), sowie das Schema für die Berechnung der Rechts-Links-Einteilung, wurden von diesem Forschungsprojekt übernommen. Eine Analyse von [BR Data](http://br.de/data) und Felix Bießmann.
 
@@ -87,13 +87,13 @@ Die Ergebnisse der Analyse werden in einer JSON-Datei `analysis/results/results.
 
 Alle Metriken werden jeweils pro Partei berechnet. Folgende Metriken sind verfügbar (unvollständig):
 
-**left_mean, right_mean**: arithmetisches Mittel aller Links oder Rechts-Werte.  
+**left_mean, right_mean**: arithmetisches Mittel aller Links- oder Rechts-Werte.  
 **rile_mean**: Differenz des Rechts-Durchschnitts und des Links-Durchschnitts.
 
-**left_median, right_median**: Median aller Links oder Rechts-Werte.  
+**left_median, right_median**: Median aller Links- oder Rechts-Werte.  
 **rile_median**: Differenz des Rechts-Medians und des Links-Medians.
 
-**left_stddev, right_stddev**: Standardabweichung der Links oder Rechts-Werte.
+**left_stddev, right_stddev**: Standardabweichung der Links- oder Rechts-Werte.
 
 Die Berechnungen des arithmetischen Mittels und des Medians sind auch jeweils als gewichteter Mittelwert verfügbar (**weighted_mean**, **weighted_median**).
 
@@ -108,7 +108,7 @@ Die Berechnungen des arithmetischen Mittels und des Medians sind auch jeweils al
 **max_domain_rile**: Differenz der durchschnittlichen Rechts-Werte und der durchschnittlichen Links-Werte pro Domäne.
 
 **max_domain_max_left, max_domain_max_right**: Anzahl der Paragraphen, die dem Label `left` ODER `right` (Maximum) UND einem Manifesto-Code zugeordnet wurden.  
-**max_domain_max_rile**: Differenz der Anzahl aller Paragraphen mit `max_leftright=left` UND `max_domain=*` und aller Paragraphen mit `max_leftright=left` UND `max_domain=*`. Diese Metrik ist allerdings recht schwierig, da das Sample pro Partei und pro Domäne teilweise recht klein ist und extreme Ergebnisse liefert.
+**max_domain_max_rile**: Differenz der Anzahl aller Paragraphen mit `max_leftright=left` UND `max_domain=*` und aller Paragraphen mit `max_leftright=right` UND `max_domain=*`. Diese Metrik ist allerdings recht schwierig, da das Sample pro Partei und pro Domäne teilweise recht klein ist und extreme Ergebnisse liefert.
 
 ## Historische Werte zum Vergleich
 
