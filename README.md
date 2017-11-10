@@ -1,17 +1,17 @@
 # Analyse der Wahlprogramme zur Bundestagswahl 2017
 
-Untersuchung der Wahlprogramme zur Bundestagswahl 2017 auf inhaltlichen Schwerpunkte und politische Ausrichtung. Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien über 5% (nach Umfragen). Die Wahlprogramme wurde automatisiert pro Absatz nach politischer Einstellung (links/rechts) und Politikfeld eingeordnet.
+Untersuchung der Wahlprogramme zur Bundestagswahl 2017 auf inhaltlichen Schwerpunkte und politische Ausrichtung. Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien über 5% (nach Umfragen). Die Wahlprogramme wurde automatisiert pro Gliederungspunkt nach politischer Einstellung (links/rechts) und Politikfeld eingeordnet.
 
-Der Einordnung liegt ein Machine-Learning-Algorithmus zugrunde, welcher mit Daten des [Manifesto-Projekt](https://manifestoproject.wzb.eu/) trainiert wurde. Auch das Schema für die Klassifizierung der Wahlprogramme (Domains und Labels), sowie die Berechnung der Rechts-Links-Einteilung wurden von diesem Forschungsprojekt übernommen. Eine Analyse von [BR Data](http://br.de/data) und Felix Bießmann.
+Der Einordnung liegt ein Machine-Learning-Algorithmus zugrunde, welcher mit Daten des [Manifesto-Projekt](https://manifestoproject.wzb.eu/) trainiert wurde. Auch das Schema für die Klassifizierung der Wahlprogramme (Domains und Labels), sowie das Schema für die Berechnung der Rechts-Links-Einteilung, wurden von diesem Forschungsprojekt übernommen. Eine Analyse von [BR Data](http://br.de/data) und Felix Bießmann.
 
 - **Artikel**: http://web.br.de/interaktiv/wahlprogramm-analyse-bundestagswahl
 - **Paper**: https://arxiv.org/abs/1608.02195
 
 ## Manifesto-Projekt
 
-Das [Manifesto-Projekt](https://manifestoproject.wzb.eu/) untersucht Parteiprogramme aus verschiedenen Ländern auf ihre Inhalte und politische Positionen. Für das Manifesto-Projekt von DFG und WZB codieren Wissenschaftler Wahlprogramme auf Aussagenebene. Jeweils mehrere Manifesto-Codes bilden eine übergeordnete politische Domain.
+Das [Manifesto-Projekt](https://manifestoproject.wzb.eu/) untersucht Wahlprogramme aus verschiedenen Ländern auf ihre Inhalte und politischen Positionen. Für das Manifesto-Projekt von DFG und WZB codieren Wissenschaftler Wahlprogramme auf Aussagenebene. Jeweils mehrere Manifesto-Codes bilden eine übergeordnete politische Domain.
 
-Domains repräsentieren die großen Politikfelder: External Relations, Freedom and Democracy, Political System, Economy, Welfare and Quality of Life, Fabric of Society, Social Groups. Einzelnen Manifesto-Codes können zudem einer eher  linken oder rechten politisch Ausrichtung ([Codebuch, Seite 28](https://manifestoproject.wzb.eu/down/documentation/codebook_MPDataset_MPDS2015a.pdf)) zugeordnet werden.
+Domains repräsentieren die großen Politikfelder: External Relations, Freedom and Democracy, Political System, Economy, Welfare and Quality of Life, Fabric of Society, Social Groups. Einzelne Manifesto-Codes können zudem einer linken oder rechten politisch Ausrichtung ([Codebuch, Seite 28](https://manifestoproject.wzb.eu/down/documentation/codebook_MPDataset_MPDS2015a.pdf)) zugeordnet werden.
 
 ## Wahlprogramme
 
@@ -60,7 +60,7 @@ $ APIKEY  = "36ef88622dd8955fbf8c2afe9b13c7b2"
 $ python br.py
 ```
 
-Die Ergebnisse werden in als Tabelle in `data/resultate/results.csv` gespeichert. Außerdem wird im gleichen Verzeichnis für jede Domain eine Violin-Plot erstellt, der dabei hilft die Ergebnisse der Klassifizierung auf ihre Plausibilität hin zu überprüfen.
+Die Ergebnisse werden als Tabelle in `data/resultate/results.csv` gespeichert. Außerdem wird im gleichen Verzeichnis für jede Domain ein Violin-Plot erstellt, der dabei hilft, die Ergebnisse der Klassifizierung auf ihre Plausibilität hin zu überprüfen.
 
 ## Analyse und Aggregation
 
@@ -97,17 +97,17 @@ Alle Metriken werden jeweils pro Partei berechnet. Folgende Metriken sind verfü
 
 Die Berechnungen des arithmetischen Mittels und des Medians sind auch jeweils als gewichteter Mittelwert verfügbar (**weighted_mean**, **weighted_median**).
 
-**left_calc, right_calc**: Anzahl der Paragraphen welche nach Manifesto-Definition ([Codebuch, Seite 28](https://manifestoproject.wzb.eu/down/documentation/codebook_MPDataset_MPDS2015a.pdf)) recht oder links sind.  
+**left_calc, right_calc**: Anzahl der Paragraphen, welche nach Manifesto-Definition ([Codebuch, Seite 28](https://manifestoproject.wzb.eu/down/documentation/codebook_MPDataset_MPDS2015a.pdf)) rechts oder links sind.  
 **rile_calc**: Differenz der Summe aller rechten Paragraphen und der Summe alle linken Paragraphen geteilt durch die Anzahl aller Paragraphen (Σ rechts -  Σ links / Σ rechts + Σ links)
 
-**max_domain**: Anzahl der Paragraphen die einer Domäne (Maximum) zugeordnet wurden.  
-**max_manifesto**: Anzahl der Paragraphen die einem Manifesto-Code (Maximum) zugeordnet wurden.  
-**max_leftright**: Anzahl der Paragraphen die dem Label `left` ODER `right` (Maximum) zugeordnet wurden.
+**max_domain**: Anzahl der Paragraphen, die einer Domäne (Maximum) zugeordnet wurden.  
+**max_manifesto**: Anzahl der Paragraphen, die einem Manifesto-Code (Maximum) zugeordnet wurden.  
+**max_leftright**: Anzahl der Paragraphen, die dem Label `left` ODER `right` (Maximum) zugeordnet wurden.
 
-**max_domain_left, max_domain_right**: Durchschnitt aller Links ODER Rechts-Werte pro Domäne.  
+**max_domain_left, max_domain_right**: Durchschnitt aller Links- ODER Rechts-Werte pro Domäne.  
 **max_domain_rile**: Differenz der durchschnittlichen Rechts-Werte und der durchschnittlichen Links-Werte pro Domäne.
 
-**max_domain_max_left, max_domain_max_right**: Anzahl der Paragraphen die dem Label `left` ODER `right` (Maximum) UND einem Manifesto-Code zugeordnet wurden.  
+**max_domain_max_left, max_domain_max_right**: Anzahl der Paragraphen, die dem Label `left` ODER `right` (Maximum) UND einem Manifesto-Code zugeordnet wurden.  
 **max_domain_max_rile**: Differenz der Anzahl aller Paragraphen mit `max_leftright=left` UND `max_domain=*` und aller Paragraphen mit `max_leftright=left` UND `max_domain=*`. Diese Metrik ist allerdings recht schwierig, da das Sample pro Partei und pro Domäne teilweise recht klein ist und extreme Ergebnisse liefert.
 
 ## Historische Werte zum Vergleich
