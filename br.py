@@ -138,12 +138,13 @@ def plotAll():
     _ = compute_most_distant_statements_per_topic(df)
     compute_word_code_correlations(df)
 
-    plot_left_right(df, colors, plot_suffix = 'all_domains')
+    plot_left_right(df.copy(), colors, plot_suffix = 'all_domains')
 
     for domain in domains:
         # get rows containing statements for this topic across all parties
         idx = df[domains].apply(pd.Series.argmax,axis=1)==domain
-        plot_left_right(df[idx], colors, plot_suffix = domain)
+        plot_left_right(df[idx].copy(), colors, plot_suffix = domain)
+
 
 
 def plot_left_right(df,

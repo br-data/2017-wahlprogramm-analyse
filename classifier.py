@@ -91,6 +91,7 @@ class Classifier:
         mc = manifestolabels()
         df = pd.DataFrame(self.clf.predict_proba(texts),columns=self.clf.classes_)
         mcCols = df.columns
+
         valid_right = list(set(label2rightleft['right']).intersection(set(mcCols)))
         valid_left = list(set(label2rightleft['left']).intersection(set(mcCols)))
         df['right'] = df[valid_right].sum(axis=1)
