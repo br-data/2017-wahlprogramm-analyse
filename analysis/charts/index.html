@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="initial-scale=1">
+  <title>Analyse der Wahlprogramme zur Bundestagswahl 2017</title>
+
+  <style>
+
+    html {
+      box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Open Sans", Helvetica, Arial, sans-serif;
+      font-size: 1em;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    article {
+      margin: 0 auto;
+      max-width: 740px;
+      padding: 10px;
+    }
+
+    svg {
+      margin-bottom: 1em;
+    }
+
+    svg text {
+      font-size: 12px;
+      font-weight: 300;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+       font-weight: 400;
+    }
+
+    h3 {
+      margin-bottom: 0;
+    }
+
+    p {
+      margin: 1em 0 2em;
+    }
+
+    b, strong {
+      font-weight: 600;
+    }
+
+    .small-margin {
+      margin-bottom: .5em;
+    }
+
+    .legend {
+      margin-bottom: 1em;
+    }
+
+    .legend > div {
+      display: inline-block;
+      margin-right: .75em;
+    }
+
+    .legend .box {
+      display: inline-block;
+      margin-right: .3em;
+      width: 1em;
+      height: 1em;
+      vertical-align: sub;
+    }
+
+    .legend .box.circle {
+      border-radius: 100%;
+    }
+
+    .small-chart {
+      display: inline-block;
+      padding: 2em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    tr:nth-of-type(even) {
+      background: #f0f0f4;
+    }
+
+    th {
+      background: #f0f0f4;
+      font-weight: 600;
+      cursor: s-resize;
+      background-repeat: no-repeat;
+      background-position: 3% center;
+    }
+
+    td, th {
+      font-size: 14px;
+      padding: 6px;
+      border: 1px solid #ccd;
+      text-align: left;
+    }
+
+    th.des:after {
+      content: " ↑";
+    }
+
+    th.aes:after {
+      content: " ↓";
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <article>
+
+    <h1 style="font-size: 2em;">Analyse der Wahlprogramme zur Bundestagswahl 2017</h1>
+
+    <div id="small-bar-chart"></div>
+
+    <p>Grundlage der Auswertung sind alle Wahlprogramme deutscher Parteien über 5% (nach Umfragen) zur Bundestagswahl 2017. Die Wahlprogramme wurde automatisiert pro Absatz nach politischer Einstellung (links/rechts) und Politikfeld eingeordnet. Der Einordnung liegt ein Machine-Learning-Algorithmus zugrunde, welcher mit Daten des Manifesto-Projekt trainiert wurde. </p>
+
+    <svg id="manifesto-historic" width="720" height="350"></svg>
+
+    <p>Wir wollen anhand dieser Analyse zeigen, wo die Parteien ihre inhaltlichen Schwerpunkte haben und wie diese politisch einzuordnen sind. Die Frage, ob die Links-Rechts-Einteilung überhaupt noch sinnvoll ist, möchten wir, z.B. anhand der AfD, aufgreifen.</p>
+
+    <h3>Auf welche Themen legen die Parteien besonders viel Wert?</h3>
+
+    <p>Die nachfolgende Auswertung zeigt, wie sich die Aussagen in den einzelnen Parteiprogrammen relativ über die Domains verteilen. Demnach steht bei allen Parteien die Domain "Welfare and Quality of Life" im Mittelpunkt.</p>
+
+    <div class="legend">
+      <div><div class="box" style="background:#8dd3c7;"></div>Political System</div>
+      <div><div class="box" style="background:#bebada;"></div>Freedom and Democracy</div>
+      <div><div class="box" style="background:#fb8072;"></div>External Relations</div>
+      <div><div class="box" style="background:#80b1d3;"></div>Economy</div>
+      <div><div class="box" style="background:#fdb462;"></div>Welfare and Quality of Life</div>
+      <div><div class="box" style="background:#b3de69;"></div>Fabric of Society</div>
+    </div>
+    <svg id="max-domain" width="720" height="400"></svg>
+
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="max-domain-weights" width="720" height="400"></svg>
+
+    <p>Die Parteiprogramme sind in der Länge sehr unterschiedlich. Dementsprechend variiert auch die Anzahl der Aussagen pro Domain. Spannend hier könnte z.B. sein: Die SPD spricht sehr wenige wirtschaftliche Themen (Domain "Economy") an, für die FDP ist die Domain "Freedom and Democracy" sehr wichtig. Die AfD trifft in der Domain "Fabric of Society" die meisten Aussagen.</p>
+
+    <p class="small-margin"><strong>Anzahl der Aussagen pro Partei und Politikfeld:</strong></p>
+    <div id="max-domain-table"></div>
+
+    <p class="small-margin"><strong>Anzahl der Aussagen pro Partei und Manifesto-Code:</strong></p>
+    <div id="max-manifesto-table"></div>
+
+    <p>(Die Tabelle kann mit Klick auf die Überschriften in den Spalten auf- und absteigend sortiert werden)</p>
+
+    <h3>Die Standpunkte der Parteien, aufgeschlüsselt nach Politikfeldern/Domains</h3>
+
+    <p>Die folgende Auswertung zeigt, wie sich die Parteien in den einzelnen Domains auf einer Links-Rechts-Skala einordnen. Die Farbcodes entsprechen den oben verwendeten Farben. Auffällig ist, dass sich die Grünen in den Domains "Political System", "External Relations" und "Fabric of Society" sehr nahe an der CDU/CSU bewegen.</p>
+
+    <div class="legend">
+      <div><div class="box circle" style="background:#8dd3c7;"></div>Political System</div>
+      <div><div class="box circle" style="background:#bebada;"></div>Freedom and Democracy</div>
+      <div><div class="box circle" style="background:#fb8072;"></div>External Relations</div>
+      <div><div class="box circle" style="background:#80b1d3;"></div>Economy</div>
+      <div><div class="box circle" style="background:#fdb462;"></div>Welfare and Quality of Life</div>
+      <div><div class="box circle" style="background:#b3de69;"></div>Fabric of Society</div>
+    </div>
+
+    <p class="small-margin"><strong>AfD pro Politikfeld:</strong></p>
+    <svg id="afd" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="afd-weighted" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>CDU/CSU pro Politikfeld:</strong></p>
+    <svg id="union" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="union-weighted" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>FDP pro Politikfeld:</strong></p>
+    <svg id="fdp" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="fdp-weighted" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>SPD pro Politikfeld:</strong></p>
+    <svg id="spd" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="spd-weighted" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>Grüne pro Politikfeld:</strong></p>
+    <svg id="gruene" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="gruene-weighted" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>Die Linke pro Politikfeld:</strong></p>
+    <svg id="linke" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="linke-weighted" width="720" height="75"></svg>
+
+    <h3>Die Politikfelder/Domains, aufgeschlüsselt nach Parteien</h3>
+
+    <p>Die folgende Auswertung zeigt auf einer Links-Rechts-Skala, wie sich die Parteien in den einzelnen Domains positionieren. Überraschend ist, dass die AfD lediglich in der Domain "External Relations" eine rechte Position einnimmt. Erwartungsgemäß steht die FDP bei "Economy" am weitesten rechts, Die Linke ordnet sich in allen Domains am linken Rand ein.</p>
+
+    <div class="legend">
+      <div><div class="box circle" style="background:#129ee6;"></div>AfD</div>
+      <div><div class="box circle" style="background:#121212;"></div>CDU/CSU</div>
+      <div><div class="box circle" style="background:#ffdd00;"></div>FDP</div>
+      <div><div class="box circle" style="background:#d71f1d;"></div>SPD</div>
+      <div><div class="box circle" style="background:#0a8000;"></div>Grüne</div>
+      <div><div class="box circle" style="background:#be3075;"></div>Die Linke</div>
+    </div>
+
+    <p class="small-margin"><strong>Welfare and Quality of Life pro Partei:</strong></p>
+    <svg id="welfare" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="welfare-weighted" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>Economy pro Partei:</strong></p>
+    <svg id="economy" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="economy-weighted" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>External Relations pro Partei:</strong></p>
+    <svg id="external" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="external-weighted" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>Fabric of Society pro Partei:</strong></p>
+    <svg id="fabric" width="720" height="75"></svg>
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="fabric-weighted" width="720" height="75"></svg>
+
+    <h3>Einteilung nach Rechts-Links, wie sinnvoll ist das?</h3>
+
+    <p>Die nachfolgende Auswertung zeigt, dass die AfD - gemessen an allen Aussagen - nicht am rechten Rand steht. Am Beispiel der AfD wird deutlich, dass eine Bezeichnung als "rechtspopulistisch" allenfalls in einzelnen Politikfeldern Sinn macht. Frage: Gibt es Rechtspopulismus überhaupt? Oder müsste man nicht einfach nur von Populismus sprechen? Ebenso deutlich wird, dass die Grünen in die Mitte rücken, währenddessen die SPD deutlich weiter links steht.</p>
+
+    <p class="small-margin"><strong>Rechts/Links nach Manifesto-Definition pro Partei:</strong></p>
+    <svg id="rile-calc" width="720" height="75"></svg>
+
+    <p class="small-margin"><strong>Rechts/Links (Median) pro Partei:</strong></p>
+    <svg id="rile-median" width="720" height="75"></svg>
+
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="rile-weighted-median" width="720" height="75"></svg>
+
+
+    <p class="small-margin"><strong>Rechts/Links (Median plus Standardabweichung) pro Partei:</strong></p>
+    <svg id="rile-median-box" width="720" height="180"></svg>
+
+    <p class="small-margin">Gewichtetet:</p>
+    <svg id="rile-weighted-median-box" width="720" height="180"></svg>
+
+    <div class="hide" style="display: none;">
+      <p class="small-margin"><strong>Rechts/Links des Parteiprogramm pro Partei:</strong></p>
+      <svg id="manifesto" width="720" height="75"></svg>
+    </div>
+
+    <h3>Methode</h3>
+
+    <p>Das Manifesto-Projekt untersucht Parteiprogramme aus verschiedenen Ländern auf ihre Inhalte und politische Positionen. Für das <a href="https://manifestoproject.wzb.eu/" target=blank>Manifesto Project</a> von DFG und WZB codieren Wissenschaftler händisch Wahlprogramme. Codieren heißt: Sie weisen allen Aussagen Manifesto-Codes zu, die die angesprochenen Inhalte kategorisieren. Jeweils mehrere Manifesto-Codes bilden eine übergeordnete politische Domain. Domains sind die großen Politikfelder, die von den Parteien thematisiert werden. Diese sind: External Relations, Freedom and Democracy, Political System, Economy, Welfare and Quality of Life, Fabric of Society, Social Groups. Einzelnen Manifesto-Codes wird außerdem zugeschrieben, eine politisch linke oder rechte Ausrichtung zu repräsentieren.</p>
+
+    <p>Für die nachfolgende Analyse haben wir mit unserem Kooperationspartner Felix Bießmann einen Machine-Learning-Algorithmus mit den Daten (Codierungen der deutschen Wahlprogramme seit 2005) des Manifesto Project trainiert. Der Algorithmus hat im zweiten Schritt die aktuellen Wahlprogramme analysiert und Scores für die Manifesto-Codes und Rechts-Links-Einteilung errechnet.  Die Klassifizierung der Wahlprogramme folgt dem gleichen Prinzip wie die <a href="https://manifestoproject.wzb.eu/down/documentation/codebook_MPDataset_MPDS2015a.pdf">Klassifizierung der Parteiprogramme</a>.</p>
+  </article>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.2/d3.min.js"></script>
+
+  <script type="text/javascript" src="utils.js"></script>
+  <script type="text/javascript" src="table.js"></script>
+  <script type="text/javascript" src="groupedBarChart.js"></script>
+  <script type="text/javascript" src="groupedBarChartInverse.js"></script>
+  <script type="text/javascript" src="stackedBarChart.js"></script>
+  <script type="text/javascript" src="smallBarChart.js"></script>
+  <script type="text/javascript" src="rightLeftChart.js"></script>
+  <script type="text/javascript" src="rightLeftTimeline.js"></script>
+  <script type="text/javascript" src="boxPlot.js"></script>
+
+  <script type="text/javascript">
+    d3.json('../results/results.json', function (data) {
+
+      init(data);
+    });
+
+    function init(data) {
+
+      console.log(data);
+
+      var domains = [
+        'External Relations',
+        'Freedom and Democracy',
+        'Political System',
+        'Economy',
+        'Welfare and Quality of Life',
+        'Fabric of Society'
+      ];
+
+      var obj = {};
+
+      domains.forEach(function (domain) {
+
+        obj[domain] = [];
+
+        Object.keys(data.max_domain_weighted_rile).forEach(function (party) {
+
+          obj[domain].push({
+            party: party,
+            value: data.max_domain_weighted_rile[party][domain],
+            left: data.max_domain_weighted_stddev_left[party][domain],
+            right: data.max_domain_weighted_stddev_right[party][domain]
+          });
+        });
+      });
+
+      var manifesto = {
+        'AfD': -0.15,
+        'CDU/CSU': 0.1,
+        'Die Linke': -0.39,
+        'FDP': 0.06,
+        'Grüne': -0.36,
+        'SPD': -0.14
+      };
+
+      var categoryColors = {
+        'Political System': '#8dd3c7',
+        'Freedom and Democracy': '#bebada',
+        'External Relations': '#fb8072',
+        'Economy': '#80b1d3',
+        'Welfare and Quality of Life': '#fdb462',
+        'Fabric of Society': '#b3de69'
+      };
+
+      var partyColors = {
+        'AfD': '#129ee6',
+        'CDU/CSU': '#121212',
+        'FDP': '#ffdd00',
+        'SPD': '#d71f1d',
+        'Grüne': '#0a8000',
+        'Die Linke': '#be3075'
+      };
+
+      smallBarChart('small-bar-chart', data.max_domain_weights, partyColors);
+
+      d3.csv('../results/rile-scores-historic.csv', function (data) {
+
+        rightLeftTimeline('manifesto-historic', data, partyColors);
+      });
+
+      groupedBarChartInverse('max-domain', data.max_domain_weights, partyColors);
+      groupedBarChart('max-domain-weights', data.max_domain_weights, categoryColors);
+
+      table('max-domain-table', data.max_domain);
+
+      table('max-manifesto-table', data.max_manifesto);
+
+      rightLeftChart('afd', data.max_domain_rile['AfD'], categoryColors);
+      rightLeftChart('afd-weighted', data.max_domain_weighted_rile['AfD'], categoryColors);
+
+      rightLeftChart('union', data.max_domain_rile['CDU/CSU'], categoryColors);
+      rightLeftChart('union-weighted', data.max_domain_weighted_rile['CDU/CSU'], categoryColors);
+
+      rightLeftChart('fdp', data.max_domain_rile['FDP'], categoryColors);
+      rightLeftChart('fdp-weighted', data.max_domain_weighted_rile['FDP'], categoryColors);
+
+      rightLeftChart('spd', data.max_domain_rile['SPD'], categoryColors);
+      rightLeftChart('spd-weighted', data.max_domain_weighted_rile['SPD'], categoryColors);
+
+      rightLeftChart('gruene', data.max_domain_rile['Grüne'], categoryColors);
+      rightLeftChart('gruene-weighted', data.max_domain_weighted_rile['Grüne'], categoryColors);
+
+      rightLeftChart('linke', data.max_domain_rile['Die Linke'], categoryColors);
+      rightLeftChart('linke-weighted', data.max_domain_weighted_rile['Die Linke'], categoryColors);
+
+
+      var welfare = {};
+
+      Object.keys(data.max_domain_rile).forEach(function (key) {
+
+        welfare[key] = data.max_domain_rile[key]['Welfare and Quality of Life'];
+      });
+
+      rightLeftChart('welfare', welfare, partyColors);
+
+      var welfareWeighted = {};
+
+      Object.keys(data.max_domain_weighted_rile).forEach(function (key) {
+
+        welfareWeighted[key] = data.max_domain_weighted_rile[key]['Welfare and Quality of Life'];
+      });
+
+      rightLeftChart('welfare-weighted', welfareWeighted, partyColors);
+
+
+      var economy = {};
+
+      Object.keys(data.max_domain_rile).forEach(function (key) {
+
+        economy[key] = data.max_domain_rile[key]['Economy'];
+      });
+
+      rightLeftChart('economy', economy, partyColors);
+
+      var economyWeighted = {};
+
+      Object.keys(data.max_domain_weighted_rile).forEach(function (key) {
+
+        economyWeighted[key] = data.max_domain_weighted_rile[key]['Economy'];
+      });
+
+      rightLeftChart('economy-weighted', economyWeighted, partyColors);
+
+
+      var external = {};
+
+      Object.keys(data.max_domain_rile).forEach(function (key) {
+
+        external[key] = data.max_domain_rile[key]['External Relations'];
+      });
+
+      rightLeftChart('external', external, partyColors);
+
+      var externalWeighted = {};
+
+      Object.keys(data.max_domain_weighted_rile).forEach(function (key) {
+
+        externalWeighted[key] = data.max_domain_weighted_rile[key]['External Relations'];
+      });
+
+      rightLeftChart('external-weighted', externalWeighted, partyColors);
+
+
+      var fabric = {};
+
+      Object.keys(data.max_domain_rile).forEach(function (key) {
+
+        fabric[key] = data.max_domain_rile[key]['Fabric of Society'];
+      });
+
+      rightLeftChart('fabric', fabric, partyColors);
+
+      var fabricWeighted = {};
+
+      Object.keys(data.max_domain_weighted_rile).forEach(function (key) {
+
+        fabricWeighted[key] = data.max_domain_weighted_rile[key]['Fabric of Society'];
+      });
+
+      rightLeftChart('fabric-weighted', fabricWeighted, partyColors);
+
+
+      rightLeftChart('rile-calc', data.rile_calc, partyColors);
+      rightLeftChart('rile-median', data.rile_median, partyColors);
+      rightLeftChart('rile-weighted-median', data.rile_weighted_median, partyColors);
+
+      boxPlot('rile-median-box', data.rile_median, data.left_stddev, data.right_stddev, partyColors);
+
+      boxPlot('rile-weighted-median-box', data.rile_weighted_mean, data.left_weighted_stddev, data.right_weighted_stddev, partyColors);
+
+
+      rightLeftChart('manifesto', manifesto, partyColors);
+    }
+
+  </script>
+</body>
+
+</html>
